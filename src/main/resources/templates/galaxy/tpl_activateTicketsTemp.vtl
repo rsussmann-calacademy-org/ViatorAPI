@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<Envelope>
+    <Header>
+        <SourceID>${galaxySourceId}-${serverId}</SourceID>
+        <MessageID>$messageId</MessageID>
+        <MessageType>ActivateTicket</MessageType>
+        <TimeStamp>$timestamp</TimeStamp>
+    </Header>
+    <Body>
+    <TicketActivation>
+        <Command>Activate</Command>
+        <CustomerID>$customerId</CustomerID>
+        <SalesProgram>$salesProgramId</SalesProgram>
+        <Tickets>
+            #foreach( $ticket in $tickets )
+                <Ticket>
+                    <VisualID>$ticket.visualId</VisualID>
+                    <PLU>$ticket.plu</PLU>
+                    <Price>$ticket.price</Price>
+                    <EventID>$ticket.eventId</EventID>
+                    <SessionID>$sessionId</SessionID>
+                </Ticket>
+            #end
+        </Tickets>
+    </TicketActivation>
+    <Payments>
+        <Payment>
+            <PaymentCode>80</PaymentCode>
+            <Description>GROUP</Description>
+            <Endorsement></Endorsement>
+            <Amount>$paymentFormatted</Amount>
+        </Payment>
+    </Payments>
+    </Body>
+</Envelope>

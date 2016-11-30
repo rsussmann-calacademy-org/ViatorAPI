@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Envelope>
+    <Header>
+        <SourceID>${galaxySourceId}-${serverId}</SourceID>
+        <MessageID>$messageId</MessageID>
+        <MessageType>AbandonSession</MessageType>
+        <SessionID>$sessionId</SessionID>
+        <TimeStamp>$timestamp</TimeStamp>
+    </Header>
+    <Body>
+    <AbandonSession>
+        <SessionID>$sessionId</SessionID>
+    </AbandonSession>
+    </Body>
+</Envelope>

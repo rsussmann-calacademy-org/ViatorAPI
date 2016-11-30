@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BookingAmendmentResponse xmlns="http://toursgds.com/api/01">
+ <ApiKey>cdqu60CykKeca1Qc000VXwgchV000L2fNOOf0bv9gPp</ApiKey>
+ <ResellerId>1000</ResellerId>
+ <SupplierId>9999</SupplierId>
+ <ExternalReference>10051374722992700</ExternalReference>
+ <Timestamp>2013-07-26T13:30:53.616+10:00</Timestamp>
+ <Extension>
+         <any/>
+ </Extension>
+ <Parameter>
+                 <Name/>
+                 <Value/>
+         </Parameter>
+ <RequestStatus>
+                    <Status>SUCCESS</Status>
+ </RequestStatus>
+ <BookingReference>999999999</BookingReference>
+ <SupplierCommentCustomer/>
+ <TourBarcode/>
+ <Traveller>
+         <TravellerIdentifier>1</TravellerIdentifier>
+         <TravellerSupplierConfirmationNumber/>
+         <TravellerSeat/>
+         <TravellerBarcode>9990009990009999000</TravellerBarcode>
+ </Traveller>
+ <TransactionStatus>
+                    <Status>CONFIRMED</Status>
+ </TransactionStatus>
+ <SupplierConfirmationNumber>CN123456</SupplierConfirmationNumber>
+</BookingAmendmentResponse>

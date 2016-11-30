@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request>
+	<EndOfDay>
+		<OrbitalConnectionUsername>[% OrbitalConnectionUsername= %]</OrbitalConnectionUsername>
+		<OrbitalConnectionPassword>[% OrbitalConnectionPassword= %]</OrbitalConnectionPassword>
+		<BIN>[% BIN %]</BIN>
+		<MerchantID>[% MerchantID %]</MerchantID>
+		<TerminalID>[% TerminalID=001 %]</TerminalID>
+		[# SettleRejectBin #]
+	</EndOfDay>
+</Request>

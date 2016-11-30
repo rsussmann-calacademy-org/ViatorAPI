@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Envelope>
+ <Header>
+ <SourceID>${galaxySourceId}-${serverId}</SourceID>
+ <MessageID>$messageId</MessageID>
+ <MessageType>Authenticate</MessageType>
+ <TimeStamp>$timestamp</TimeStamp>
+ </Header>
+ <Body>
+ <Authenticate>
+ <Username>$galaxyUsername</Username>
+ <Password>$galaxyPassword</Password>
+ <PasswordEncrypted>NO</PasswordEncrypted>
+ </Authenticate>
+ </Body>
+ </Envelope>

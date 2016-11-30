@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Envelope>
+    <Header>
+        <SourceID>${galaxySourceId}-${serverId}</SourceID>
+        <MessageID>$messageId</MessageID>
+        <MessageType>EventTicketHold</MessageType>
+        <SessionID>$sessionId</SessionID>
+        <TimeStamp>$timestamp</TimeStamp>
+    </Header>
+    <Body>
+        <EventTicketHold>
+            <EventID>$eventId</EventID>
+            <SectionID>$sectionId</SectionID>
+            <Qty>$quantity</Qty>
+        </EventTicketHold>
+    </Body>
+</Envelope>

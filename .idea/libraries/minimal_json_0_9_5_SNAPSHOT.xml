@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="minimal-json-0.9.5-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/minimal-json-0.9.5-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

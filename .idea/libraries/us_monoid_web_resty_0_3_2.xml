@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="us.monoid.web:resty:0.3.2" type="repository">
+    <properties maven-id="us.monoid.web:resty:0.3.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/resty-0.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javacc-4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

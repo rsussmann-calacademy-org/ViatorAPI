@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/sql/sp_buildInterestDelta.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/sp_buildLeadProperties.1.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/sp_buildLeadProperties.2.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/sp_buildLeadProperties.20151004.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/sp_queueOpportunities.ddl" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/work_interest_history.ddl" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/work_lead_ext.ddl" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/sql/work_lead_ext_history.ddl" dialect="TSQL" />
+  </component>
+</project>
+

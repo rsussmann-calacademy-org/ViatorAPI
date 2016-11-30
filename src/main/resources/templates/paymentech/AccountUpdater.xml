@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request>
+	<AccountUpdater>
+		<OrbitalConnectionUsername>[% OrbitalConnectionUsername= %]</OrbitalConnectionUsername>
+		<OrbitalConnectionPassword>[% OrbitalConnectionPassword= %]</OrbitalConnectionPassword>
+		<CustomerBin>[% CustomerBin %]</CustomerBin>
+		<CustomerMerchantID>[% CustomerMerchantID %]</CustomerMerchantID>
+		<CustomerRefNum>[% CustomerRefNum= %]</CustomerRefNum>
+		<CustomerProfileAction>[% CustomerProfileAction= %]</CustomerProfileAction>
+		<ScheduledDate>[% ScheduledDate= %]</ScheduledDate>
+	</AccountUpdater>
+</Request>

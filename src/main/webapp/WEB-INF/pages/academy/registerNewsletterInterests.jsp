@@ -1,0 +1,3 @@
+<%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${!empty callback}">${callback}(</c:if>{"result": "${result}", "message": "${message}", "contactId":"${contactId}", "requested": [<c:forEach var="interestRequest" items="${interestsRequested}" varStatus="statusRequest"><c:if test="${statusRequest.index > 0}">,</c:if>"${interestRequest}"</c:forEach>], "registered": [<c:forEach var="interestRegistered" items="${interestsRegistered}" varStatus="statusRegistered"><c:if test="${statusRegistered.index > 0}">,</c:if>"${interestRegistered}"</c:forEach>]}<c:if test="${!empty callback}">);</c:if>

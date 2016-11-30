@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request>
+	<Reversal>
+		<OrbitalConnectionUsername>[% OrbitalConnectionUsername= %]</OrbitalConnectionUsername>
+		<OrbitalConnectionPassword>[% OrbitalConnectionPassword= %]</OrbitalConnectionPassword>
+		<TxRefNum>[% TxRefNum= %]</TxRefNum>
+		<TxRefIdx>[% TxRefIdx= %]</TxRefIdx>
+		<AdjustedAmt>[% AdjustedAmt= %]</AdjustedAmt>
+		<OrderID>[% OrderID %]</OrderID>
+		<BIN>[% BIN %]</BIN>
+		<MerchantID>[% MerchantID %]</MerchantID>
+		<TerminalID>[% TerminalID=001 %]</TerminalID>
+		<ReversalRetryNumber>[% ReversalRetryNumber= %]</ReversalRetryNumber>
+		<OnlineReversalInd>[% OnlineReversalInd= %]</OnlineReversalInd>
+	</Reversal>
+</Request>

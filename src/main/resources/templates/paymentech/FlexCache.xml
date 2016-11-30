@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request>
+	<FlexCache>
+		<OrbitalConnectionUsername>[% OrbitalConnectionUsername= %]</OrbitalConnectionUsername>
+		<OrbitalConnectionPassword>[% OrbitalConnectionPassword= %]</OrbitalConnectionPassword>
+		<BIN>[% BIN %]</BIN>
+		<MerchantID>[% MerchantID %]</MerchantID>
+		<TerminalID>[% TerminalID=001 %]</TerminalID>
+		<AccountNum>[% AccountNum= %]</AccountNum>
+		<OrderID>[% OrderID %]</OrderID>
+		<Amount>[% Amount= %]</Amount>
+		<CardSecVal>[% CardSecVal= %]</CardSecVal>
+		<Comments>[% Comments= %]</Comments>
+		<ShippingRef>[% ShippingRef= %]</ShippingRef>
+		<IndustryType>[% IndustryType=EC %]</IndustryType>
+		<FlexAutoAuthInd>[% FlexAutoAuthInd=N %]</FlexAutoAuthInd>
+		<FlexPartialRedemptionInd>[% FlexPartialRedemptionInd=N %]</FlexPartialRedemptionInd>
+		<FlexAction>[% FlexAction %]</FlexAction>
+		<StartAccountNum>[% StartAccountNum= %]</StartAccountNum>
+		<ActivationCount>[% ActivationCount= %]</ActivationCount>
+		<TxRefNum>[% TxRefNum= %]</TxRefNum>
+		<FlexEmployeeNumber>[% FlexEmployeeNumber= %]</FlexEmployeeNumber>
+		[# PriorAuthID #]
+		<AVSzip>[% AVSzip= %]</AVSzip>
+		<AVSaddress1>[% AVSaddress1= %]</AVSaddress1>
+		<AVSaddress2>[% AVSaddress2= %]</AVSaddress2>
+		<AVScity>[% AVScity= %]</AVScity>
+		<AVSstate>[% AVSstate= %]</AVSstate>
+		<AVSphoneNum>[% AVSphoneNum= %]</AVSphoneNum>
+		<AVSname>[% AVSname= %]</AVSname>
+		<AVScountryCode>[% AVScountryCode= %]</AVScountryCode>
+		<AVSDestzip>[% AVSDestzip= %]</AVSDestzip>
+		<AVSDestaddress1>[% AVSDestaddress1= %]</AVSDestaddress1>
+		<AVSDestaddress2>[% AVSDestaddress2= %]</AVSDestaddress2>
+		<AVSDestcity>[% AVSDestcity= %] </AVSDestcity>
+		<AVSDeststate>[% AVSDeststate= %]</AVSDeststate>
+		<AVSDestphoneNum>[% AVSDestphoneNum= %]</AVSDestphoneNum>
+		<AVSDestname>[% AVSDestname= %]</AVSDestname>
+		<AVSDestcountryCode>[% AVSDestcountryCode= %]</AVSDestcountryCode>
+		<CustomerAni>[% CustomerAni= %]</CustomerAni>
+		<AVSPhoneType>[% AVSPhoneType= %]</AVSPhoneType>
+		<AVSDestPhoneType>[% AVSDestPhoneType= %]</AVSDestPhoneType>
+		<CustomerEmail>[% CustomerEmail= %]</CustomerEmail>
+		<CustomerIpAddress>[% CustomerIpAddress= %]</CustomerIpAddress>
+		<EmailAddressSubtype>[% EmailAddressSubtype= %]</EmailAddressSubtype>
+		<CustomerBrowserName>[% CustomerBrowserName= %]</CustomerBrowserName>
+		<ShippingMethod>[% ShippingMethod= %]</ShippingMethod>
+		[# FraudAnalysis #]
+	</FlexCache>
+</Request>

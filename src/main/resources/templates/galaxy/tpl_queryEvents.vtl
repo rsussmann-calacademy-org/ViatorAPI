@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Envelope>
+    <Header>
+        <SourceID>${galaxySourceId}-${serverId}</SourceID>
+        <MessageID>$messageId</MessageID>
+        <MessageType>QueryEvents</MessageType>
+        <SessionID>$sessionId</SessionID>
+        <TimeStamp>$timestamp</TimeStamp>
+    </Header>
+    <Body>
+        <QueryEvents>
+            <EventRangeBeginDate>$dateStart</EventRangeBeginDate>
+            <EventRangeEndDate>$dateEnd</EventRangeEndDate>
+            <PLU>$plu</PLU>
+            <ResourceID>$resourceId</ResourceID>
+            <EventTypeID>$eventTypeId</EventTypeID>
+            <ReturnAttributes>YES</ReturnAttributes>
+        </QueryEvents>
+    </Body>
+</Envelope>

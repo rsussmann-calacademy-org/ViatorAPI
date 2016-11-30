@@ -1,0 +1,289 @@
+marketo.marketoEndpoint     =https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
+marketo.marketoUserId       =californiaacademyofsciences1_1297519852CC396BBAAC41
+marketo.marketoSecretKey    =96207525314004195522CCCC339966CDBBAABC737343
+marketo.marketoQnameUrl     =http://www.marketo.com/mktows/
+marketo.marketoQnameName    =MktMktowsApiService
+
+marketo.dataSourceDriver    =net.sourceforge.jtds.jdbc.Driver
+marketo.dataSourceUrl       =jdbc:jtds:sqlserver://warehouse-prod:1433/AcademyContacts
+marketo.dataSourceUser      =Jasper
+marketo.dataSourcePassword  =J@sp3r4321
+
+marketo.marketoProgramName  =TechnicalTest
+marketo.marketoCampaignName =TechnicalTestCampaign
+marketo.marketoListName     =Trav-Test-List
+
+marketo.sql        =select a.id, a.lastName, a.firstName, '' as job, '' as company, a.email, b.name as source, \
+                                c.name as status, e.name as subscriptions             \
+                                from contacts a                                                         \
+                                inner join sources b on a.sourceId = b.id                               \
+                                inner join status c on a.statusId = c.id                                \
+                                inner join ContactsSubscriptions d on a.id = d.contactId                \
+                                inner join subscriptions e on e.id = d.subscriptionId                   \
+                                where a.lastUploaded is null        \
+                             order by a.email
+marketo.batchRows           =20000
+marketo.columnNames         =Last Name,First Name,Job Title,Company Name,Email Address
+marketo.columnIndices       =2,3,4,5,6
+marketo.columnListName      =subscriptions
+marketo.columnProgramName   =
+marketo.columnCampaignName  =
+marketo.columnLastUploaded  =lastUploaded
+marketo.useSqlColumnNames   =false
+
+marketo.syncMultipleLeads.marketoEndpoint=https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
+marketo.syncMultipleLeads.columnEmail=Email
+marketo.syncMultipleLeads.sqlOriginal=\
+  select a.lastName as LastName, a.firstName as FirstName, '' as Job, '' as Company, b.name as Source, c.name as Status, a.email as Email \
+    \
+  from contacts a                                                           \
+  inner join sources b on a.sourceId = b.id                                 \
+  inner join status c on a.statusId = c.id                                  \
+  inner join ContactsSubscriptions d on a.id = d.contactId                  \
+  inner join subscriptions e on e.id = d.subscriptionId                     \
+  where a.lastUploaded = '1970-01-01' and a.lastName is not null and a.firstName is not null and b.name is not null and c.name is not null \
+  order by a.email
+marketo.syncMultipleLeadsDesired.sql=\
+  select a.id, a.lastName as LastName, a.firstName as FirstName, a.email as Email,title as Salutation, jobTitle as Title, company as Company, c.name as Status,   \
+    b.name as LeadSource, a.RaiserEdgeId, a.galaxyId as GalaxyId, \
+    a.PostalCode, a.phone as Phone, a.city as City, a.State, a.Country, a.Birthdate as DateOfBirth, a.Gender as MarketoSocialGender, a.School \
+    from contacts a \
+    inner join sources b on a.sourceId = b.id \
+    left outer join status c on c.id=a.statusId \
+  where a.lastUploaded = '1970-01-01' \
+  order by a.email
+marketo.syncMultipleLeadsWorking.sql=\
+  select a.lastName as LastName, a.firstName as FirstName, a.email as Email   \
+    from contacts a \
+    inner join sources b on a.sourceId = b.id \
+    left outer join status c on c.id=a.statusId \
+  where a.lastUploaded = '1970-01-01' \
+  order by a.email
+line2=  c.id as Status, a.PostalCode, a.phone as Phone, a.city as City, a.State, a.Country, a.Birthdate as DateOfBirth, a.School
+marketo.syncMultipleLeadsReal.sql=\
+  select a.lastName as LastName, a.firstName as FirstName, a.email as Email,title as Salutation, jobTitle as Title, company as Company, \
+  c.id as Status, a.PostalCode, a.phone as Phone,  a.city as City, a.State, a.Country, a.School, a.Birthdate as DateOfBirth \
+    from contacts a \
+    inner join sources b on a.sourceId = b.id \
+    left outer join status c on c.id=a.statusId \
+  where a.lastUploaded = '1970-01-01' \
+  order by a.email
+marketo.syncMultipleLeads.sql=\
+    select a.lastName as LastName, a.firstName as FirstName, a.email as Email,title as Salutation, jobTitle as Title, company as Company, \
+    c.name as Status, a.zip as PostalCode, a.phone as Phone,  a.city as City, a.State, a.Country, a.School, a.Birthdate as DateofBirth, \
+     CASE when c.name = 'active' THEN 'true' ELSE 'false' END as Unsubscribed \
+      from contacts a  \
+      left outer join status c on c.id=a.statusId \
+    where a.worker = ?
+
+marketo.syncMultipleLeads.sqlBefore=\
+  update contacts set lastUploaded = '1970-01-01', worker = ? where id in \
+  (select top 100 id from contacts where worker is null and lastUploaded is null)
+marketo.syncMultipleLeads.sqlBeforeSingle=\
+  update contacts set lastUploaded = '1970-01-01', worker = ? where id = ?
+
+part2=and email not in (select key1 from MarketoStatus where objectType = 'Lead' and status IN ('CREATED', 'UPDATED'))
+marketo.syncMultipleLeads.sqlAfterSuccess=\
+  update contacts set lastUploaded = GETDATE(), worker = null where worker = ?
+marketo.syncMultipleLeads.sqlAfterFailure=\
+  update contacts set lastUploaded = null, worker = null where worker = ?
+marketo.syncMultipleLeads.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncMultipleLeads.sqlCountRecordsToProcess=\
+  select count(distinct a.email) from contacts a \
+  INNER JOIN MarketoStatus c on c.objectType = 'Lead' AND a.email = c.key1 \
+  LEFT JOIN MarketoStatus b on a.email = b.key1 AND b.objectType = 'Lead' AND b.status IN ('CREATED', 'UPDATED') WHERE b.key1 IS NULL \
+  AND a.email IS NOT NULL AND a.email <> ''
+
+marketo.syncVisitations.keys=EmailAddress,UsageID
+marketo.syncVisitations.attributes=Quantity,VisitDate,VisitType,AccessCodeGroup,VisualID
+marketo.syncVisitations.marketoKeys=EmailAddress,UsageID
+marketo.syncVisitations.sqlGlobalPrepare=execute sp_buildVisitations
+marketo.syncVisitations.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncVisitations.sqlWorkerBefore=\
+  update contacts set worker = ? where email in \
+  (\
+    select top 25 a.email \
+      FROM GalaxyScans a INNER JOIN contacts b on a.email = b.email \
+      INNER JOIN MarketoStatus c ON a.email = c.key1 AND c.objectType = 'Lead' \
+      LEFT JOIN MarketoStatus d on a.email = d.key1 AND d.objectType = 'Visitation' \
+      WHERE a.email is not null and LEN(a.email) > 0 and b.worker IS NULL \
+      and c.key1 IS NOT NULL AND d.key1 IS NULL \
+  )
+marketo.syncVisitations.sqlWorker04272014=select a.email as EmailAddress, visualID as VisualID, accessCodeGroupId as AccessCodeGroup, null as VisitType, usetime as VisitDate, qty as Quantity \
+    from GalaxyScans a INNER JOIN contacts b ON a.email = b.email WHERE b.worker = ? order by a.email
+marketo.syncVisitations.sqlWorker=\
+  select AccessCodeGroupName as AccessCodeGroup, a.email as EmailAddress, qty as Quantity, dayused as VisitDate, \
+  accessCodeName as VisitType, VisualID, UsageID from GalaxyScans a \
+  INNER JOIN contacts b on a.email = b.email \
+  where worker = ?
+
+marketo.syncVisitations.sqlWorkerAfterSuccess=\
+  update contacts set worker = null, luVisitations = getdate() where worker = ?
+marketo.syncVisitations.sqlWorkerAfterFailure=\
+  update contacts set worker = null where worker = ?
+marketo.syncVisitations.sqlCountRecordsToProcess=\
+  select count(distinct a.email) from GalaxyScans a \
+  INNER JOIN MarketoStatus c on c.objectType = 'Lead' AND a.email = c.key1 \
+  LEFT JOIN MarketoStatus b on a.email = b.key1 AND b.objectType = 'Visitation' \
+  WHERE b.key1 IS NULL AND a.email IS NOT NULL AND a.email <> ''
+
+marketo.syncConstituents.marketoKeys=EmailAddress,VisualID
+marketo.syncConstituents.keys=EmailAddress,VisualID
+marketo.syncConstituents.attributes=Category,ConstituentID,DropDate,ExpirationDate, HighestGiftAmount, JoinDate, LastGiftAmount,LastGiftDate, LastGiftFundDescription,MembershipProgram,MembershipStanding,TimesRenewed,TotalGiftAmount,WealthScore,WealthScoreCategory
+marketo.syncConstituents.sqlWorkerBefore=\
+  update contacts set worker = ? where email in (\
+        select top 100 a.constituentEmailAddress \
+          FROM constituents a INNER JOIN contacts b on a.constituentEmailAddress = b.email \
+          INNER JOIN MarketoStatus c ON a.constituentEmailAddress = c.key1 AND c.objectType = 'Lead' \
+          LEFT JOIN MarketoStatus d on a.constituentEmailAddress = d.key1 AND d.objectType = 'Constituent' \
+          WHERE a.constituentEmailAddress is not null and LEN(a.constituentEmailAddress) > 0 and b.worker IS NULL \
+          AND d.key1 IS NULL \
+    )
+marketo.syncConstituents.sqlWorker04272014=select ConstituentEmailAddress, ConstituentEmailAddress as EmailAddress, ConstituentID, VisualID, MembershipLevel as MembershipProgram, \
+    MembershipLevel, MembershipStanding, ExpirationDate,TimesRenewed, JoinDate, DropDate, WeathScoreCategory, \
+    WeathScore, LastGiftAmount, HighestGiftAmount, LastGiftDate, LastGiftFundDescription, TotalGiftAmount  \
+    FROM constituents a INNER JOIN contacts b ON a.constituentEmailAddress = b.email WHERE b.worker = ? order by constituentEmailAddress
+marketo.syncConstituents.sqlWorker=select membershipLevel as Category,ConstituentEmailAddress, ConstituentID, DropDate, \
+  ConstituentEmailAddress as EmailAddress, ExpirationDate, HighestGiftAmount, JoinDate, LastGiftAmount, \
+  LastGiftDate, LastGiftFundDescription, MembershipProgram, MembershipStanding, TimesRenewed, TotalGiftAmount, \
+  VisualID, WealthScore, WealthScoreCategory FROM constituents a \
+  INNER JOIN contacts b on a.constituentEmailAddress = b.email \
+  WHERE worker = ?
+
+marketo.syncConstituents.sqlWorkerAfterSuccess=\
+  update contacts set worker = null, luConstituents = getdate() where worker = ?
+marketo.syncConstituents.sqlWorkerAfterFailure=\
+  update contacts set worker = null where worker = ?
+marketo.syncConstituents.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncConstituents.sqlCountRecordsToProcess=\
+  select count(distinct a.constituentEmailAddress) from constituents a \
+  INNER JOIN MarketoStatus c on c.objectType = 'Lead' AND a.constituentEmailAddress = c.key1 \
+  LEFT JOIN MarketoStatus b on a.constituentEmailAddress = b.key1 AND b.objectType = 'Constituent' WHERE b.key1 IS NULL \
+  AND a.constituentEmailAddress IS NOT NULL AND a.constituentEmailAddress <> ''
+
+marketo.syncInterests.marketoKeys=EmailAddress,InterestName
+marketo.syncInterests.keys=EmailAddress,InterestName
+marketo.syncInterests.attributes=Status
+marketo.syncInterests.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncInterests.sqlWorkerBefore=\
+  update contacts set worker = ? where email in \
+  (\
+    select distinct top 150 a.email \
+    FROM contacts a INNER JOIN contactsInterests b ON a.id = b.contactId INNER JOIN Interests e on b.interestId = e.id \
+    INNER JOIN MarketoStatus c ON a.email = c.key1 AND c.objectType = 'Lead' \
+    LEFT JOIN MarketoStatus d on a.email = d.key1 AND d.objectType = 'Interest_In' AND e.name = d.key2 \
+    WHERE a.email is not null and LEN(a.email) > 0 and a.worker IS NULL \
+    AND d.key1 IS NULL \
+  )
+marketo.syncInterests.sqlWorker04272014=select a.email as EmailAddress, c.code as InterestName \
+    from contacts a INNER JOIN contactsInterests b ON a.id = b.contactId INNER JOIN interests c ON b.interestid = c.id WHERE a.worker = ?
+marketo.syncInterests.sqlWorker=select a.email EmailAddress, e.name interestName, e.status as Status from contacts a \
+  inner join ContactsInterests d on a.id = d.contactId inner join interests e on e.id = d.interestid WHERE a.worker = ?
+marketo.syncInterests.sqlWorkerAfterSuccess=\
+  update contacts set worker = null, luInterests = getdate() where worker = ?
+marketo.syncInterests.sqlWorkerAfterFailure=\
+  update contacts set worker = null where worker = ?
+marketo.syncInterests.sqlCountRecordsToProcess=\
+  select count(*) from contacts a INNER JOIN ContactsInterests b on a.id = b.contactId INNER JOIN Interests c on b.interestId = c.id \
+  INNER JOIN MarketoStatus e on a.email = e.key1 AND e.objectType = 'Lead' \
+  LEFT JOIN MarketoStatus d ON a.email = d.key1 AND c.name = d.key2 AND d.objectType = 'Interest_In' \
+  WHERE d.key1 IS NULL AND a.email IS NOT NULL and a.email <> ''
+
+marketo.syncOrders.keys=EmailAddress,OrderID
+marketo.syncOrders.attributes=Agency,OrderDate,OrderTotal
+marketo.syncOrders.marketoKeys=EmailAddress,OrderID
+marketo.syncOrders.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncOrders.sqlWorkerBefore=\
+  update contacts set worker = ? where email in \
+  (\
+    select top 100 a.EmailAddress  \
+    FROM GalaxyOrders a INNER JOIN contacts b on a.EmailAddress = b.email  \
+    INNER JOIN MarketoStatus c ON a.EmailAddress = c.key1 AND c.objectType = 'Lead'  \
+    LEFT JOIN MarketoStatus d on a.EmailAddress = d.key1 AND d.objectType = 'Order' \
+    WHERE a.EmailAddress is not null and LEN(a.EmailAddress) > 0 and b.worker IS NULL \
+    AND d.key1 IS NULL \
+  )
+marketo.syncOrders.sqlWorker04272014=select a.email as EmailAddress, OrderID, [Purchase Date] as OrderDate, [Purchase Amount] as OrderTotal, \
+   AgencyDescription as Agency,null as OrderSubtotal,null as OrderTax,null as DiscountName \
+   from GalaxyOrders a INNER JOIN contacts b ON a.email = b.email WHERE b.worker = ?
+marketo.syncOrders.sqlWorker=select AgencyDescription as Agency,EmailAddress,OrderDate,OrderID,pluPrice as OrderTotal from GalaxyOrders a \
+  INNER JOIN contacts b on a.EmailAddress = b.email \
+  WHERE worker = ?
+marketo.syncOrders.sqlWorkerAfterSuccess=\
+  update contacts set worker = null, luOrders = getdate() where worker = ?
+marketo.syncOrders.sqlWorkerAfterFailure=\
+  update contacts set worker = null where worker = ?
+marketo.syncOrders.sqlCountRecordsToProcess=\
+select count(distinct a.EmailAddress) from GalaxyOrders a \
+INNER JOIN MarketoStatus c on a.EmailAddress = c.key1 AND objectType = 'Lead' \
+LEFT JOIN MarketoStatus b on a.EmailAddress = b.key1 AND b.objectType = 'Order' \
+WHERE b.key1 IS NULL AND a.EmailAddress IS NOT NULL AND a.EmailAddress <> ''
+
+
+marketo.syncOrderDetails.keys=EmailAddress,VisualID
+marketo.syncOrderDetails.attributes=PLUName,PLUItemGroup,PLUPrice,DiscountName,OrderDate,OrderID,Quantity
+marketo.syncOrderDetails.marketoKeys=EmailAddress,VisualID
+marketo.syncOrderDetails.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncOrderDetails.sqlWorkerBefore=\
+  update contacts set worker = ? where email in \
+  (\
+      select distinct top 100 a.EmailAddress \
+      FROM GalaxyOrderDetail a INNER JOIN contacts b on a.EmailAddress = b.email  \
+      INNER JOIN MarketoStatus c ON a.EmailAddress = c.key1 AND c.objectType = 'Lead'  \
+      LEFT JOIN MarketoStatus d on a.EmailAddress = d.key1 AND d.objectType = 'OrderDetail' \
+      WHERE a.EmailAddress is not null and LEN(a.EmailAddress) > 0 and b.worker IS NULL \
+      AND d.key1 IS NULL \
+  )
+marketo.syncOrderDetails.sqlWorker04272014=\
+  SELECT \
+      EmailAddress, VisualID, OrderID, PLUPrice, PLUName, PLUItemGroup \
+  FROM OrderDetails a \
+  INNER JOIN contacts b on a.emailAddress = b.email WHERE b.worker = ?
+marketo.syncOrderDetails.sqlWorker=\
+select name as DiscountName,EmailAddress,OrderDate,OrderID,PLUItemGroup,PLUName,PLUPrice,Quantity,VisualID from GalaxyOrderDetail a \
+INNER JOIN contacts b on a.EmailAddress = b.email  WHERE worker = ?
+
+marketo.syncOrderDetails.sqlWorkerAfterSuccess=\
+  update contacts set worker = null, luOrders = getdate() where worker = ?
+marketo.syncOrderDetails.sqlWorkerAfterFailure=\
+  update contacts set worker = null where worker = ?
+marketo.syncOrderDetails.sqlCountRecordsToProcess=\
+select count(distinct a.EmailAddress) from GalaxyOrderDetail a \
+INNER JOIN MarketoStatus c ON a.EmailAddress = c.key1 AND c.objectType = 'Lead' \
+LEFT JOIN MarketoStatus d on a.EmailAddress = d.key1 AND d.objectType = 'OrderDetail'  \
+WHERE d.key1 IS NULL AND a.EmailAddress IS NOT NULL AND a.EmailAddress <> ''
+
+
+marketo.syncEvents.keys=EmailAddress,VisualID
+marketo.syncEvents.attributes=Amount,Attended,Category,EventCapacity,EventCategory,EventDate,EventDonation,EventName,Type
+marketo.syncEvents.marketoKeys=EmailAddress,VisualID
+marketo.syncEvents.sqlInsertStatus=\
+  insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
+marketo.syncEvents.sqlWorkerBefore=\
+  update contacts set worker = ? where email in \
+  (\
+      select top 100 a.EmailAddress \
+      FROM Event a INNER JOIN contacts b on a.EmailAddress = b.email  \
+      INNER JOIN MarketoStatus c ON a.EmailAddress = c.key1 AND c.objectType = 'Lead'  \
+      LEFT JOIN MarketoStatus d on a.EmailAddress = d.key1 AND d.objectType = 'Event' \
+      WHERE a.EmailAddress is not null and LEN(a.EmailAddress) > 0 and b.worker IS NULL \
+      AND d.key1 IS NULL \
+  )
+marketo.syncEvents.sqlWorker=\
+    SELECT Amount, Attended, Category, EmailAddress, EventCapacity, EventCategory, EventDate, EventDonation, EventName, Type, VisualID FROM event a \
+    INNER JOIN contacts b on a.EmailAddress = b.email WHERE worker = ?
+marketo.syncEvents.sqlWorkerAfterSuccess=\
+UPDATE contacts set worker = null, luOrderDetails = getdate() where worker = ?
+marketo.syncEvents.sqlWorkerAfterFailure=\
+UPDATE contacts set worker = null where worker = ?
+marketo.syncEvents.sqlCountRecordsToProcess=\
+SELECT count(distinct a.EmailAddress) from Event a \
+INNER JOIN MarketoStatus c ON a.EmailAddress = c.key1 AND c.objectType = 'Lead' \
+LEFT JOIN MarketoStatus d on a.EmailAddress = d.key1 AND d.objectType = 'Event'  \
+WHERE d.key1 IS NULL AND a.EmailAddress IS NOT NULL AND a.EmailAddress <> ''

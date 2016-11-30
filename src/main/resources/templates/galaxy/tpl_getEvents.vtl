@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Envelope>
+    <Header>
+        <MessageID>$messageId</MessageID>
+        <MessageType>GetEvents</MessageType>
+        <SourceID>${galaxySourceId}-${serverId}</SourceID>
+        <TimeStamp>$timestamp</TimeStamp>
+    </Header>
+    <Body>
+    <GetEvents>
+        <EventIDs>
+            <EventID>$eventId</EventID>
+        </EventIDs>
+    </GetEvents>
+    </Body>
+</Envelope>

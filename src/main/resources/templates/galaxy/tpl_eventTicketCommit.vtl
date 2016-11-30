@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<Envelope>
+    <Header>
+        <SourceID>${galaxySourceId}-${serverId}</SourceID>
+        <MessageID>$messageId</MessageID>
+        <MessageType>EventTicketCommit</MessageType>
+        <SessionID>$sessionId</SessionID>
+        <TimeStamp>$timestamp</TimeStamp>
+    </Header>
+    <Body>
+        <EventTicketCommit>
+            <EventID>$eventId</EventID>
+            <SectionID>$sectionId</SectionID>
+            <CapacityID>$capacityId</CapacityID>
+            <Qty>$quantity</Qty>
+        </EventTicketCommit>
+    </Body>
+</Envelope>

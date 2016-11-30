@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+    <appender name="eCommerce" class="org.apache.log4j.RollingFileAppender">
+    	<param name="File" value="/usr/local/tomcat/logs/eCommerce.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+        	<param name="ConversionPattern" value="%5p,%d,[%c] - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="engine" class="org.apache.log4j.RollingFileAppender">
+    	<param name="File" value="/usr/local/tomcat/logs/engine.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+        	<param name="ConversionPattern" value="%5p,%d,[%c] - %m%n"/>
+        </layout>
+    </appender>
+    <logger name="com.mchange.v2.c3p0">
+        <level value="WARN"/>
+    </logger>
+    <category name="eCommerceLogger" additivity="false"> 		
+	<priority value="INFO" /> 	
+	<appender-ref ref="eCommerce"/>
+    </category>
+    <category name="engineLogger" additivity="false"> 		
+	<priority value="INFO" /> 	
+	<appender-ref ref="engine"/>
+    </category>
+    <category additivity="false" name="org.apache.commons.httpclient">
+	<appender-ref ref="engine"/>
+    </category>
+    <category additivity="false" name="com.paymentech.orbital.sdk.util.ssl.StrictSSLProtocolSocketFactory">
+	<appender-ref ref="engine"/>
+    </category>
+    <category additivity="false" name="httpclient">
+ 	<appender-ref ref="engine"/>
+    </category>
+</log4j:configuration>

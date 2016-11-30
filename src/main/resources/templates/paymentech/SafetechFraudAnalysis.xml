@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Request>
+	<SafetechFraudAnalysis>
+		<OrbitalConnectionUsername>[% OrbitalConnectionUsername= %]</OrbitalConnectionUsername>
+		<OrbitalConnectionPassword>[% OrbitalConnectionPassword= %]</OrbitalConnectionPassword>
+		<BIN>[% BIN %]</BIN>
+		<MerchantID>[% MerchantID %]</MerchantID>
+		<TerminalID>[% TerminalID=001 %]</TerminalID>
+		<BaseElements>
+			<IndustryType>[% IndustryType=EC %]</IndustryType>
+			<CardBrand>[% CardBrand= %]</CardBrand>
+			<AccountNum>[% AccountNum= %]</AccountNum>
+			<Exp>[% Exp= %]</Exp>
+			<CurrencyCode>[% CurrencyCode=840 %]</CurrencyCode>
+			<CurrencyExponent>[% CurrencyExponent=2 %]</CurrencyExponent>
+			<CardSecValInd>[% CardSecValInd= %]</CardSecValInd>
+			<CardSecVal>[% CardSecVal= %]</CardSecVal>
+			<BCRtNum>[% BCRtNum= %]</BCRtNum>
+			<CheckDDA>[% CheckDDA= %]</CheckDDA>
+			<BankAccountType>[% BankAccountType= %]</BankAccountType>
+			<ECPAuthMethod>[% ECPAuthMethod= %]</ECPAuthMethod>
+			<BankPmtDelv>[% BankPmtDelv= %]</BankPmtDelv>
+			<AVSzip>[% AVSzip= %]</AVSzip>
+			<AVSaddress1>[% AVSaddress1= %]</AVSaddress1>
+			<AVSaddress2>[% AVSaddress2= %]</AVSaddress2>
+			<AVScity>[% AVScity= %]</AVScity>
+			<AVSstate>[% AVSstate= %]</AVSstate>
+			<AVSphoneNum>[% AVSphoneNum= %]</AVSphoneNum>
+			<AVSname>[% AVSname= %]</AVSname>
+			<AVScountryCode>[% AVScountryCode= %]</AVScountryCode>
+			<AVSDestzip>[% AVSDestzip= %]</AVSDestzip>
+			<AVSDestaddress1>[% AVSDestaddress1= %]</AVSDestaddress1>
+			<AVSDestaddress2>[% AVSDestaddress2= %]</AVSDestaddress2>
+			<AVSDestcity>[% AVSDestcity= %]</AVSDestcity>
+			<AVSDeststate>[% AVSDeststate= %]</AVSDeststate>
+			<AVSDestphoneNum>[% AVSDestphoneNum= %]</AVSDestphoneNum>
+			<AVSDestname>[% AVSDestname= %]</AVSDestname>
+			<AVSDestcountryCode>[% AVSDestcountryCode= %]</AVSDestcountryCode>
+			<UseCustomerRefNum>[% UseCustomerRefNum= %]</UseCustomerRefNum>
+			<AuthenticationECIInd>[% AuthenticationECIInd= %]</AuthenticationECIInd>
+			<CAVV>[% CAVV= %]</CAVV>
+			<XID>[% XID= %]</XID>
+			<AAV>[% AAV= %]</AAV>
+			<OrderID>[% OrderID= %]</OrderID>
+			<Amount>[% Amount= %]</Amount>
+			<Comments>[% Comments= %]</Comments>
+			<EUDDCountryCode>[% EUDDCountryCode= %]</EUDDCountryCode>
+			<EUDDBankSortCode>[% EUDDBankSortCode= %]</EUDDBankSortCode>
+			<EUDDRibCode>[% EUDDRibCode= %]</EUDDRibCode>
+			<BMLCustomerIP>[% BMLCustomerIP= %]</BMLCustomerIP>
+			<BMLCustomerEmail>[% BMLCustomerEmail= %]</BMLCustomerEmail>
+			<BMLShippingCost>[% BMLShippingCost= %]</BMLShippingCost>
+			<BMLTNCVersion>[% BMLTNCVersion= %]</BMLTNCVersion>
+			<BMLCustomerRegistrationDate>[% BMLCustomerRegistrationDate= %]	</BMLCustomerRegistrationDate>
+			<BMLCustomerTypeFlag>[% BMLCustomerTypeFlag= %]</BMLCustomerTypeFlag>
+			<BMLItemCategory>[% BMLItemCategory= %]</BMLItemCategory>
+			<BMLPreapprovalInvitationNum>[% BMLPreapprovalInvitationNum= %]	</BMLPreapprovalInvitationNum>
+			<BMLMerchantPromotionalCode>[% BMLMerchantPromotionalCode= %]</BMLMerchantPromotionalCode>
+			<BMLCustomerBirthDate>[% BMLCustomerBirthDate= %]</BMLCustomerBirthDate>
+			<BMLCustomerSSN>[% BMLCustomerSSN= %]</BMLCustomerSSN>
+			<BMLCustomerAnnualIncome>[% BMLCustomerAnnualIncome= %]</BMLCustomerAnnualIncome>
+			<BMLCustomerResidenceStatus>[% BMLCustomerResidenceStatus= %]</BMLCustomerResidenceStatus>
+			<BMLCustomerCheckingAccount>[% BMLCustomerCheckingAccount= %]</BMLCustomerCheckingAccount>
+			<BMLCustomerSavingsAccount>[% BMLCustomerSavingsAccount= %]</BMLCustomerSavingsAccount>
+			<BMLProductDeliveryType>[% BMLProductDeliveryType= %]</BMLProductDeliveryType>
+			<BillerReferenceNumber>[% BillerReferenceNumber= %]</BillerReferenceNumber>
+			<UseStoredAAVInd>[% UseStoredAAVInd= %]</UseStoredAAVInd>
+			<ECPCheckSerialNumber>[% ECPCheckSerialNumber= %]</ECPCheckSerialNumber>
+			<ECPTerminalCity>[% ECPTerminalCity= %]</ECPTerminalCity>
+			<ECPTerminalState>[% ECPTerminalState= %]</ECPTerminalState>
+			<ECPImageReferenceNumber>[% ECPImageReferenceNumber= %]</ECPImageReferenceNumber>
+			<CustomerAni>[% CustomerAni= %]</CustomerAni>
+			<AVSPhoneType>[% AVSPhoneType= %]</AVSPhoneType>
+			<AVSDestPhoneType>[% AVSDestPhoneType= %]</AVSDestPhoneType>
+			<CustomerEmail>[% CustomerEmail= %]</CustomerEmail>
+			<CustomerIpAddress>[%CustomerIpAddress= %]</CustomerIpAddress>
+			<EmailAddressSubtype>[% EmailAddressSubtype= %]</EmailAddressSubtype>
+			<CustomerBrowserName>[% CustomerBrowserName= %]</CustomerBrowserName>
+			<ShippingMethod>[% ShippingMethod= %]</ShippingMethod>	
+		</BaseElements>
+		<FraudAnalysis>	
+			<FraudScoreIndicator>[% FraudScoreIndicator= %]</FraudScoreIndicator>
+			<RulesTrigger>[% RulesTrigger= %]</RulesTrigger>
+			<SafetechMerchantID>[% SafetechMerchantID= %]</SafetechMerchantID>
+			<KaptchaSessionID>[% KaptchaSessionID= %]</KaptchaSessionID>
+			<WebsiteShortName>[% WebsiteShortName= %]</WebsiteShortName>
+			<CashValueOfFencibleItems>[% CashValueOfFencibleItems= %]</CashValueOfFencibleItems>
+			<CustomerDOB>[% CustomerDOB= %]</CustomerDOB>
+			<CustomerGender>[% CustomerGender= %]</CustomerGender>
+			<CustomerDriverLicense>[% CustomerDriverLicense= %]</CustomerDriverLicense>
+			<CustomerID>[% CustomerID= %]</CustomerID>
+			<CustomerIDCreationTime>[% CustomerIDCreationTime= %]</CustomerIDCreationTime>
+			<KTTVersionNumber>[% KTTVersionNumber= %]</KTTVersionNumber>
+			<KTTDataLength>[% KTTDataLength= %]</KTTDataLength>
+			<KTTDataString>[% KTTDataString= %]</KTTDataString>
+		</FraudAnalysis>
+	</SafetechFraudAnalysis>
+</Request>
