@@ -94,6 +94,7 @@ public class ControllerAcademy {
         boolean contactsDatabaseReachable = testReachabilityContactsDatabase();
 
         PooledDataSource pds = (PooledDataSource)serviceGalaxy.getDataSource();
+
         int numConnections = -1, numConnectionsIdle = -1, numConnectionsBusy = -1, numConnectionsOrphaned = -1;
         try {
             numConnections = pds.getNumConnectionsAllUsers();

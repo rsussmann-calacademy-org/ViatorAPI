@@ -50,9 +50,6 @@ public class ControllerViator extends BaseController implements InitializingBean
     ServiceBooking serviceBooking;
 
     @Autowired
-    ServiceTicket serviceTicket;
-
-    @Autowired
     GalaxyTicketCreator galaxyTicketCreator;
 
     @Autowired
