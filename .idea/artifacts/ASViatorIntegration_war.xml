@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="ASViatorIntegration:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="ASViatorIntegration.war">
-      <element id="artifact" artifact-name="ASViatorIntegration:war exploded" />
-    </root>
-  </artifact>
-</component>

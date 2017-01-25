@@ -4,9 +4,9 @@
       <root url="jar://$PROJECT_DIR$/lib/PaymentechSDK.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/regexp.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/sunrsasign.jar!/" />
-      <root url="jar://$PAYMENTECH_HOME$/lib/commons-codec-1.3.jar!/" />
-      <root url="jar://$PAYMENTECH_HOME$/lib/commons-httpclient-3.1.jar!/" />
-      <root url="jar://$PAYMENTECH_HOME$/lib/commons-logging.jar!/" />
+      <root url="jar://$USER_HOME$/IdeaProjects/ASMembershipStore/lib/paymentech/commons-codec-1.3.jar!/" />
+      <root url="jar://$USER_HOME$/IdeaProjects/ASMembershipStore/lib/paymentech/commons-httpclient-3.1.jar!/" />
+      <root url="jar://$USER_HOME$/IdeaProjects/ASMembershipStore/lib/paymentech/commons-logging.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
