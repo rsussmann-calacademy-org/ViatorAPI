@@ -1,0 +1,149 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <context:component-scan base-package="co.launchable.api.academy"/>
+    <context:component-scan base-package="co.launchable.api.egalaxy"/>
+    <context:component-scan base-package="co.launchable.api.viator"/>
+    <context:component-scan base-package="co.launchable.api.email"/>
+
+    <context:property-placeholder location="classpath:jdbc-production.properties"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean class="co.launchable.api.viator.DaoBooking"/>
+    <bean class="co.launchable.api.viator.DaoTicket"/>
+
+    <bean id="dataSourceContacts" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.contacts.driverClassName}" />
+        <property name="jdbcUrl" value="${jdbc.contacts.url}" />
+        <property name="user" value="${jdbc.contacts.username}" />
+        <property name="password" value="${jdbc.contacts.password}" />
+        <property name="dataSourceName" value="${jdbc.contacts.url}"/>
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="maxStatements" value="100" />
+        <property name="idleConnectionTestPeriod" value="3000" />
+        <property name="loginTimeout" value="300" />
+        <property name="checkoutTimeout" value="30000"/>
+        <property name="debugUnreturnedConnectionStackTraces" value="true"/>
+    </bean>
+
+    <bean id="dataSourceGalaxy" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.galaxy.driverClassName}" />
+        <property name="jdbcUrl" value="${jdbc.galaxy.url}" />
+        <property name="user" value="${jdbc.galaxy.username}" />
+        <property name="password" value="${jdbc.galaxy.password}" />
+        <property name="dataSourceName" value="${jdbc.galaxy.url}"/>
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="maxStatements" value="100" />
+        <property name="idleConnectionTestPeriod" value="3000" />
+        <property name="loginTimeout" value="300" />
+        <property name="checkoutTimeout" value="30000"/>
+        <property name="testConnectionOnCheckout" value="false"/>
+        <property name="testConnectionOnCheckin" value="true"/>
+        <property name="preferredTestQuery" value="SELECT 1"/>
+        <property name="maxConnectionAge" value="900"/>
+        <property name="acquireRetryAttempts" value="1"/>
+        <property name="debugUnreturnedConnectionStackTraces" value="true"/>
+    </bean>
+
+    <bean id="serviceGalaxy" class="co.launchable.api.egalaxy.ServiceGalaxy">
+        <property name="dataSource" ref="dataSourceGalaxy"/>
+        <property name="serverUrl" value="${endpoints.galaxy.url}"/>
+        <property name="serverPort" value="${endpoints.galaxy.port}"/>
+        <property name="galaxyUsername" value="${endpoints.galaxy.user}"/>
+        <property name="galaxyPassword" value="${endpoints.galaxy.password}"/>
+        <property name="galaxySourceId" value="${endpoints.galaxy.client}"/>
+        <property name="galaxyCustomerId" value="4"/>
+        <property name="viatorCustomerId" value="45749"/>
+        <property name="viatorSalesProgramId" value="164"/>
+        <property name="serverId" value="1"/>
+        <property name="propertiesPath" value="/data/membership/membership.properties"/>
+        <property name="productCacheMs" value="600000"/>
+    </bean>
+
+    <bean id="controllerAcademy" class="co.launchable.api.academy.ControllerAcademy">
+        <property name="dataSource" ref="dataSourceGalaxy"/>
+        <property name="dataSourceContacts" ref="dataSourceContacts"/>
+    </bean>
+
+    <bean id="controllerViator" class="co.launchable.api.viator.ControllerViator">
+        <property name="abandonSessionImmediate" value="true"/>
+    </bean>
+
+    <bean id="galaxyTicketCreator" class="co.launchable.api.viator.GalaxyTicketCreator">
+        <property name="abandonSessionEveryTime"  value="true"/>
+        <property name="eventId"  value="45859"/>
+        <property name="resourceId" value="262"/>
+        <property name="plu" value="10151571"/>
+        <property name="period" value="1800000"/>
+        <property name="abandonSessionAfter" value="3600000"/>
+    </bean>
+
+    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="co.launchable.api.viator.xml"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <util:list id="beanList">
+                <ref bean="stringHttpMessageConverter"/>
+                <ref bean="marshallingHttpMessageConverter"/>
+            </util:list>
+        </property>
+    </bean>
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter"/>
+
+    <bean id="marshallingHttpMessageConverter"
+          class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+        <property name="marshaller" ref="jaxb2Marshaller" />
+        <property name="unmarshaller" ref="jaxb2Marshaller" />
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceContacts" />
+
+        <property name="annotatedClasses">
+            <list>
+                <value>co.launchable.api.viator.Booking</value>
+                <value>co.launchable.api.viator.Ticket</value>
+                <value>co.launchable.api.viator.BookingAction</value>
+                <value>co.launchable.api.viator.BookingComment</value>
+            </list>
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="jobStatusService"
+          class="co.launchable.api.jobs.JobStatusServiceImpl"/>
+
+    <task:scheduled-tasks scheduler="galaxyScheduler">
+        <task:scheduled ref="serviceGalaxy" method="abandonOldSessions" cron="0 0/10 * * * *"/>
+        <task:scheduled ref="serviceGalaxy" method="closeIdleConnections" cron="0 0/5 * * * *"/>
+    </task:scheduled-tasks>
+
+    <task:scheduler id="galaxyScheduler" pool-size="2"/>
+</beans>

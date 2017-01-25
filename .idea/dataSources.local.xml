@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="SQL Server - AcademyContacts@galaxy-test" uuid="515f3012-4302-40bb-8015-f2be5e6e9779">
+      <user-name>Jasper</user-name>
+      <user-password>dfe0dfeadfd9dfdadf99dfd8</user-password>
+    </data-source>
+    <data-source name="SQL Server - AcademyContacts@10.1.10.205" uuid="9ef61c4a-596e-4013-8692-47e4122bd183">
+      <user-name>Jasper</user-name>
+      <user-password>dfe0dfeadfd9dfdadf99dfd8df9edf99df98df9b</user-password>
+    </data-source>
+    <data-source name="SQL Server - galaxy1@Galaxy-pos" uuid="32e7fbb9-4eda-4a8d-bf1a-bb5e69269eb5">
+      <user-name>Jasper</user-name>
+      <user-password>dfe0dfeadfd9dfdadf99dfd8</user-password>
+      <schema-pattern>Galaxy1.*</schema-pattern>
+    </data-source>
+    <data-source name="SQL Server - @galaxy-test" uuid="672843e2-bfd1-43fa-a420-d720cab19bb4">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+    <data-source name="SQL Server - AcademyContacts@warehouse-prod" uuid="a640a026-8699-404f-97d9-22467ac944ea">
+      <user-name>Jasper</user-name>
+      <user-password>dfe0dfeadfd9dfdadf99dfd8df9edf99df98df9b</user-password>
+    </data-source>
+    <data-source name="SQL Server - galaxy1@10.1.10.188" uuid="e5f64a00-1d91-40da-b5f6-24f01fa57c0a">
+      <user-name>Jasper</user-name>
+      <user-password>dfe0dfeadfd9dfdadf99dfd8df9edf99df98df9b</user-password>
+    </data-source>
+  </component>
+</project>

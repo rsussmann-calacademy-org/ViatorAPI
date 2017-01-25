@@ -11,7 +11,6 @@
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <context:component-scan base-package="co.launchable.api.marketo"/>
     <context:component-scan base-package="co.launchable.api.academy"/>
     <context:component-scan base-package="co.launchable.api.egalaxy"/>
     <context:component-scan base-package="co.launchable.api.viator"/>
@@ -77,18 +76,13 @@
         <property name="productCacheMs" value="600000"/>
     </bean>
 
-    <bean id="serviceMarketo" class="co.launchable.api.marketo.ServiceMarketo">
-        <property name="dataSource" ref="dataSourceContacts"/>
-    </bean>
 
     <bean id="controllerAcademy" class="co.launchable.api.academy.ControllerAcademy">
         <property name="dataSource" ref="dataSourceGalaxy"/>
         <property name="dataSourceContacts" ref="dataSourceContacts"/>
     </bean>
 
-    <bean id="controllerMarketo" class="co.launchable.api.marketo.ControllerMarketo">
-        <property name="dataSource" ref="dataSourceGalaxy"/>
-    </bean>
+
 
     <bean id="galaxyTicketCreator" class="co.launchable.api.viator.GalaxyTicketCreator">
         <property name="abandonSessionEveryTime"  value="true"/>
@@ -126,10 +120,10 @@
 
         <property name="annotatedClasses">
             <list>
-                <value>co.launchable.api.viator.Booking</value>
-                <value>co.launchable.api.viator.Ticket</value>
-                <value>co.launchable.api.viator.BookingAction</value>
-                <value>co.launchable.api.viator.BookingComment</value>
+                <value>viator.Booking</value>
+                <value>viator.Ticket</value>
+                <value>viator.BookingAction</value>
+                <value>viator.BookingComment</value>
             </list>
         </property>
 
@@ -142,7 +136,7 @@
     </bean>
 
     <!--
-        <bean class="co.launchable.api.viator.ControllerViator">
+        <bean class="ControllerViator">
             <property name="productCodesToEventTypeNames">
                 <map>
                     <entry key="5072CAS" value="GMC - General Admission"/>
@@ -188,13 +182,13 @@
             </property>
         </bean>
 
-        <bean id="pcGeneralAdmission" class="co.launchable.api.viator.ProductConfig">
+        <bean id="pcGeneralAdmission" class="ProductConfig">
             <property name="productCode"><value>5072CAS</value></property>
             <property name="productName"><value>GMC - General Admission</value></property>
             <property name="ageBandInsensitive"><value>false</value></property>
         </bean>
 
-        <bean id="pcNightlife" class="co.launchable.api.viator.ProductConfig">
+        <bean id="pcNightlife" class="ProductConfig">
             <property name="productCode"><value>5072NIGHT</value></property>
             <property name="productName"><value>California Academy of Sciences Nightlife</value></property>
             <property name="ageBandInsensitive"><value>true</value></property>
@@ -210,15 +204,6 @@
             </property>
         </bean>
     -->
-    <task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="serviceMarketo" method="syncPendingLeads" cron="0 20 0 * * *"/>
-        <task:scheduled ref="serviceMarketo" method="syncPendingConstituents" cron="0 0 4 * * *"/>
-        <task:scheduled ref="serviceMarketo" method="syncPendingOrders" cron="0 15 4 * * *"/>
-        <task:scheduled ref="serviceMarketo" method="syncPendingOrderDetails" cron="0 30 4 * * *"/>
-        <task:scheduled ref="serviceMarketo" method="syncPendingVisitations" cron="0 45 4 * * *"/>
-        <task:scheduled ref="serviceMarketo" method="sendEmailReport" cron="0 30 7 * * *"/>
-        <task:scheduled ref="serviceMarketo" method="calculateUpdatedLeads" cron="0 5 0 * * *"/>
-    </task:scheduled-tasks>
 
     <task:scheduler id="myScheduler" pool-size="10"/>
 </beans>

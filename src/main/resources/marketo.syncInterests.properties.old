@@ -1,21 +1,21 @@
-marketo.syncInterests.marketoEndpoint=https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
-marketo.syncInterests.marketoUserId       =californiaacademyofsciences1_1297519852CC396BBAAC41
-marketo.syncInterests.marketoSecretKey    =96207525314004195522CCCC339966CDBBAABC737343
-marketo.syncInterests.marketoQnameUrl     =http://www.marketo.com/mktows/
-marketo.syncInterests.marketoQnameName    =MktMktowsApiService
-marketo.syncInterests.columnEmail=Email
-marketo.syncInterests.sqlPrevious=\
+co.launchable.api.marketo.marketo.syncInterests.marketoEndpoint=https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
+co.launchable.api.marketo.marketo.syncInterests.marketoUserId       =californiaacademyofsciences1_1297519852CC396BBAAC41
+co.launchable.api.marketo.marketo.syncInterests.marketoSecretKey    =96207525314004195522CCCC339966CDBBAABC737343
+co.launchable.api.marketo.marketo.syncInterests.marketoQnameUrl     =http://www.co.launchable.api.marketo.marketo.com/mktows/
+co.launchable.api.marketo.marketo.syncInterests.marketoQnameName    =MktMktowsApiService
+co.launchable.api.marketo.marketo.syncInterests.columnEmail=Email
+co.launchable.api.marketo.marketo.syncInterests.sqlPrevious=\
   select email, newsletter, nightlife, teacher, lecture_series, anthropology, aquarium, aquatic_biology, astronomy,  \
   biodiversity, biology, botany, conservation, earthquakes, education_general, education_013, education_1421, \
   entomology, exhibits, freedays, geology, herpetology, icthyology, invertebrates, kimball,  lectures, library_collections, \
   mammology, member_events, members_hours, ornithology, penguins, planetarium, rainforests, research, science_in_action, \
   technology, tours, travel, sustainability FROM interests
-marketo.syncInterests.sql=select top 50 a.email, c.name, c.code FROM contacts a \
+co.launchable.api.marketo.marketo.syncInterests.sql=select top 50 a.email, c.name, c.code FROM contacts a \
     LEFT JOIN ContactsInterests b ON a.id = b.contactid  \
     LEFT JOIN interests c ON b.interestid = c.id \
     INNER JOIN Contacts d on b.contactid = d.id WHERE a.email IN (select key1 FROM MarketoStatus where objectType = 'Lead' and status IN ('CREATED', 'UPDATED'))  \
     and a.email not in (select key1 from MarketoStatus where objectType = 'Interest' and status in ('CREATED', 'UPDATED')) order by email
-marketo.syncInterests.sqlBefore=\
+co.launchable.api.marketo.marketo.syncInterests.sqlBefore=\
   update contacts set luInterests = '1970-01-01' where email in (\
   select top 50 a.email FROM contacts a \
   LEFT JOIN ContactsInterests b ON a.id = b.contactid  \
@@ -23,26 +23,26 @@ marketo.syncInterests.sqlBefore=\
   INNER JOIN Contacts d on b.contactid = d.id WHERE a.email IN (select key1 FROM MarketoStatus where objectType = 'Lead' and status IN ('CREATED', 'UPDATED'))  \
   and a.email not in (select key1 from MarketoStatus where objectType = 'Interest' and status in ('CREATED', 'UPDATED')) order by email \
   )
-marketo.syncInterests.sqlAfterSuccess=\
+co.launchable.api.marketo.marketo.syncInterests.sqlAfterSuccess=\
   update contacts set luInterests = GETDATE() where lastUploaded = '1970-01-01'
-marketo.syncInterests.sqlAfterFailure=\
+co.launchable.api.marketo.marketo.syncInterests.sqlAfterFailure=\
   update contacts set luInterests = null where luInterests = '1970-01-01'
-marketo.syncInterests.marketoKeys=EmailAddress
-marketo.syncInterests.sqlWorkerBeforeSingle=\
+co.launchable.api.marketo.marketo.syncInterests.marketoKeys=EmailAddress
+co.launchable.api.marketo.marketo.syncInterests.sqlWorkerBeforeSingle=\
   update contacts set worker = ? where id = ?
-marketo.syncInterests.sqlWorker=select a.email, c.name, c.code FROM contacts a \
+co.launchable.api.marketo.marketo.syncInterests.sqlWorker=select a.email, c.name, c.code FROM contacts a \
     LEFT JOIN ContactsInterests b ON a.id = b.contactid  \
     LEFT JOIN interests c ON b.interestid = c.id \
     WHERE a.worker = ? order by email
-marketo.syncInterests.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncInterests.sqlWorkerAfterSuccess=\
   update contacts set luInterests = GETDATE(), worker = null where worker = ?
-marketo.syncInterests.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncInterests.sqlWorkerAfterFailure=\
   update contacts set luInterests = null, worker = null where worker = ?
 
-marketo.syncInterests.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncInterests.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, lastUpdated) values (?, ?, ?, ?, getdate())
 
-marketo.syncInterests.attributes=Newsletter,Nightlife,Education,LectureSeries,HomeSchool,RockFamily,Teachers,InformalScienceEducation,Anthropology,Aquarium,AquaticBiology,Astronomy,Biodiversity,Biology,\
+co.launchable.api.marketo.marketo.syncInterests.attributes=Newsletter,Nightlife,Education,LectureSeries,HomeSchool,RockFamily,Teachers,InformalScienceEducation,Anthropology,Aquarium,AquaticBiology,Astronomy,Biodiversity,Biology,\
 Botany,ConservationSustainability,Earthquakes,EducationGeneral,Education0_13,Education14_21,Entomology,Exhibits,\
 FreeDays,Herpetology,Ichthyology,Invertebrates,NaturalHistoryMuseum,Lectures,LibraryCollections,Mammalogy,\
 MemberEvents,MemberHours,Ornithology,Penguins,Planetarium,Rainforests,ResearchGeneral,ScienceinAction,\

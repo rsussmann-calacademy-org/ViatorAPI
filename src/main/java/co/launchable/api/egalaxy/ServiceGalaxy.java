@@ -58,7 +58,7 @@ To do:
 4. determine whether or not orders should be open or closed
 5. update order status to be an int, which apparently it needs to be from the example
 */
-@PropertySource("egalaxy.properties")
+@PropertySource("classpath:egalaxy.properties")
 @Service
 public class ServiceGalaxy {
     @Autowired
@@ -82,7 +82,7 @@ public class ServiceGalaxy {
     private Integer galaxyConnectionTimeoutStatusCheck = 30000;
     private String[] recoverableErrorStrings = new String[]{};
 
-    private int maxPostAttempts = 10;
+    private int maxPostAttempts = 1;
     private long timeoutBetweenAttempts = 2000;
     private int messageIndex = 1000;
     private Integer messageId = 100000;

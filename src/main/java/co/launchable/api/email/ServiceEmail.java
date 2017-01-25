@@ -18,7 +18,7 @@ import java.net.URL;
 /**
  * Created by McElligott on 8/19/2014.
  */
-@PropertySource("email.properties")
+@PropertySource("classpath:email.properties")
 @Service
 public class ServiceEmail implements InitializingBean {
     @Autowired

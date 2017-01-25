@@ -1,6 +1,5 @@
 package co.launchable.api.egalaxy;
 
-import co.launchable.api.viator.ViatorAvailabilityRequest;
 
 import java.util.Date;
 
@@ -20,15 +19,6 @@ public class EventTicketHoldResponse {
     private boolean released = false;
     private boolean booked = false;
     private int quantity;
-    private ViatorAvailabilityRequest viatorAvailabilityRequest;
-
-    public ViatorAvailabilityRequest getViatorAvailabilityRequest() {
-        return viatorAvailabilityRequest;
-    }
-
-    public void setViatorAvailabilityRequest(ViatorAvailabilityRequest viatorAvailabilityRequest) {
-        this.viatorAvailabilityRequest = viatorAvailabilityRequest;
-    }
 
     public boolean isActive() {
         if (booked) return false;

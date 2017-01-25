@@ -1,6 +1,5 @@
 package co.launchable.api.jobs;
 
-import co.launchable.api.marketo.ReportableSynchronizationObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

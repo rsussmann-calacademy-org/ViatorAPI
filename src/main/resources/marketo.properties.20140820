@@ -1,23 +1,23 @@
-marketo.marketoEndpoint     =https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
-marketo.marketoUserId       =californiaacademyofsciences1_1297519852CC396BBAAC41
-marketo.marketoSecretKey    =96207525314004195522CCCC339966CDBBAABC737343
-marketo.marketoQnameUrl     =http://www.marketo.com/mktows/
-marketo.marketoQnameName    =MktMktowsApiService
+co.launchable.api.marketo.marketo.marketoEndpoint     =https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
+co.launchable.api.marketo.marketo.marketoUserId       =californiaacademyofsciences1_1297519852CC396BBAAC41
+co.launchable.api.marketo.marketo.marketoSecretKey    =96207525314004195522CCCC339966CDBBAABC737343
+co.launchable.api.marketo.marketo.marketoQnameUrl     =http://www.co.launchable.api.marketo.marketo.com/mktows/
+co.launchable.api.marketo.marketo.marketoQnameName    =MktMktowsApiService
 
-marketo.dataSourceDriver    =net.sourceforge.jtds.jdbc.Driver
-marketo.dataSourceUrl       =jdbc:jtds:sqlserver://warehouse-prod:1433/AcademyContacts
-marketo.dataSourceUser      =Jasper
-marketo.dataSourcePassword  =J@sp3r4321
+co.launchable.api.marketo.marketo.dataSourceDriver    =net.sourceforge.jtds.jdbc.Driver
+co.launchable.api.marketo.marketo.dataSourceUrl       =jdbc:jtds:sqlserver://warehouse-prod:1433/AcademyContacts
+co.launchable.api.marketo.marketo.dataSourceUser      =Jasper
+co.launchable.api.marketo.marketo.dataSourcePassword  =J@sp3r4321
 
-marketo.marketoProgramName  =TechnicalTest
-marketo.marketoCampaignName =TechnicalTestCampaign
-marketo.marketoListName     =Trav-Test-List
-marketo.emailReportRecipients =mikemcelligott@gmail.com;Mike McElligott
-marketo.emailReportSql=select objectType as type, status, count(*) as total from marketostatus \
+co.launchable.api.marketo.marketo.marketoProgramName  =TechnicalTest
+co.launchable.api.marketo.marketo.marketoCampaignName =TechnicalTestCampaign
+co.launchable.api.marketo.marketo.marketoListName     =Trav-Test-List
+co.launchable.api.marketo.marketo.emailReportRecipients =mikemcelligott@gmail.com;Mike McElligott
+co.launchable.api.marketo.marketo.emailReportSql=select objectType as type, status, count(*) as total from marketostatus \
                        where lastUpdated > dateadd(dd, -1,  getdate())  and objectType <> 'Admin' \
                        group by objectType, status order by objectType
 
-marketo.sql        =select a.id, a.lastName, a.firstName, '' as job, '' as company, a.email, b.name as source, \
+co.launchable.api.marketo.marketo.sql        =select a.id, a.lastName, a.firstName, '' as job, '' as company, a.email, b.name as source, \
                                 c.name as status, e.name as subscriptions             \
                                 from contacts a                                                         \
                                 inner join sources b on a.sourceId = b.id                               \
@@ -26,18 +26,18 @@ marketo.sql        =select a.id, a.lastName, a.firstName, '' as job, '' as compa
                                 inner join subscriptions e on e.id = d.subscriptionId                   \
                                 where a.lastUploaded is null        \
                              order by a.email
-marketo.batchRows           =20000
-marketo.columnNames         =Last Name,First Name,Job Title,Company Name,Email Address
-marketo.columnIndices       =2,3,4,5,6
-marketo.columnListName      =subscriptions
-marketo.columnProgramName   =
-marketo.columnCampaignName  =
-marketo.columnLastUploaded  =lastUploaded
-marketo.useSqlColumnNames   =false
+co.launchable.api.marketo.marketo.batchRows           =20000
+co.launchable.api.marketo.marketo.columnNames         =Last Name,First Name,Job Title,Company Name,Email Address
+co.launchable.api.marketo.marketo.columnIndices       =2,3,4,5,6
+co.launchable.api.marketo.marketo.columnListName      =subscriptions
+co.launchable.api.marketo.marketo.columnProgramName   =
+co.launchable.api.marketo.marketo.columnCampaignName  =
+co.launchable.api.marketo.marketo.columnLastUploaded  =lastUploaded
+co.launchable.api.marketo.marketo.useSqlColumnNames   =false
 
-marketo.syncMultipleLeads.marketoEndpoint=https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
-marketo.syncMultipleLeads.columnEmail=Email
-marketo.syncMultipleLeads.sqlOriginal=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.marketoEndpoint=https://945-SMH-086.mktoapi.com/soap/mktows/2_2?WSDL
+co.launchable.api.marketo.marketo.syncMultipleLeads.columnEmail=Email
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlOriginal=\
   select a.lastName as LastName, a.firstName as FirstName, '' as Job, '' as Company, b.name as Source, c.name as Status, a.email as Email \
     \
   from contacts a                                                           \
@@ -47,7 +47,7 @@ marketo.syncMultipleLeads.sqlOriginal=\
   inner join subscriptions e on e.id = d.subscriptionId                     \
   where a.lastUploaded = '1970-01-01' and a.lastName is not null and a.firstName is not null and b.name is not null and c.name is not null \
   order by a.email
-marketo.syncMultipleLeadsDesired.sql=\
+co.launchable.api.marketo.marketo.syncMultipleLeadsDesired.sql=\
   select a.id, a.lastName as LastName, a.firstName as FirstName, a.email as Email,title as Salutation, jobTitle as Title, company as Company, c.name as Status,   \
     b.name as LeadSource, a.RaiserEdgeId, a.galaxyId as GalaxyId, \
     a.PostalCode, a.phone as Phone, a.city as City, a.State, a.Country, a.Birthdate as DateOfBirth, a.Gender as MarketoSocialGender, a.School \
@@ -56,7 +56,7 @@ marketo.syncMultipleLeadsDesired.sql=\
     left outer join status c on c.id=a.statusId \
   where a.lastUploaded = '1970-01-01' \
   order by a.email
-marketo.syncMultipleLeadsWorking.sql=\
+co.launchable.api.marketo.marketo.syncMultipleLeadsWorking.sql=\
   select a.lastName as LastName, a.firstName as FirstName, a.email as Email   \
     from contacts a \
     inner join sources b on a.sourceId = b.id \
@@ -64,7 +64,7 @@ marketo.syncMultipleLeadsWorking.sql=\
   where a.lastUploaded = '1970-01-01' \
   order by a.email
 line2=  c.id as Status, a.PostalCode, a.phone as Phone, a.city as City, a.State, a.Country, a.Birthdate as DateOfBirth, a.School
-marketo.syncMultipleLeadsReal.sql=\
+co.launchable.api.marketo.marketo.syncMultipleLeadsReal.sql=\
   select a.lastName as LastName, a.firstName as FirstName, a.email as Email,title as Salutation, jobTitle as Title, company as Company, \
   c.id as Status, a.PostalCode, a.phone as Phone,  a.city as City, a.State, a.Country, a.School, a.Birthdate as DateOfBirth \
     from contacts a \
@@ -72,7 +72,7 @@ marketo.syncMultipleLeadsReal.sql=\
     left outer join status c on c.id=a.statusId \
   where a.lastUploaded = '1970-01-01' \
   order by a.email
-marketo.syncMultipleLeads.sql=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sql=\
     select a.lastName as LastName, a.firstName as FirstName, a.email as Email,title as Salutation, jobTitle as Title, company as Company, \
     c.name as Status, a.zip as PostalCode, a.phone as Phone,  a.city as City, a.State, a.Country, a.School, a.Birthdate as DateofBirth, \
      CASE when c.name = 'active' THEN 'true' ELSE 'false' END as Unsubscribed \
@@ -80,163 +80,163 @@ marketo.syncMultipleLeads.sql=\
       left outer join status c on c.id=a.statusId \
     where a.worker = ?
 
-marketo.syncMultipleLeads.sqlBefore=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlBefore=\
   update contacts set lastUploaded = '1970-01-01', worker = ? where id in \
   (select top 100 id from contacts where worker is null and lastUploaded is null)
-marketo.syncMultipleLeads.sqlBeforeSingle=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlBeforeSingle=\
   update contacts set lastUploaded = '1970-01-01', worker = ? where id = ?
 
 part2=and email not in (select key1 from MarketoStatus where objectType = 'Lead' and status IN ('CREATED', 'UPDATED'))
-marketo.syncMultipleLeads.sqlAfterSuccess=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlAfterSuccess=\
   update contacts set lastUploaded = GETDATE(), worker = null where worker = ?
-marketo.syncMultipleLeads.sqlAfterFailure=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlAfterFailure=\
   update contacts set lastUploaded = null, worker = null where worker = ?
-marketo.syncMultipleLeads.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncMultipleLeads.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncMultipleLeads.sqlCountRecordsToProcess=\
   select count(distinct a.email) from contacts a \
           LEFT JOIN MarketoStatus b on a.email = b.key1 \
           AND b.objectType = 'Lead' AND b.status IN ('CREATED', 'UPDATED') \
           WHERE b.key1 IS NULL \
           AND a.email IS NOT NULL AND a.email <> ''
 
-marketo.syncVisitations.keys=EmailAddress,UsageID
-marketo.syncVisitations.attributes=Quantity,VisitDate,VisitType,AccessCodeGroup,VisualID
-marketo.syncVisitations.marketoKeys=EmailAddress,UsageID
-marketo.syncVisitations.sqlGlobalPrepare=execute sp_buildVisitations
-marketo.syncVisitations.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncVisitations.keys=EmailAddress,UsageID
+co.launchable.api.marketo.marketo.syncVisitations.attributes=Quantity,VisitDate,VisitType,AccessCodeGroup,VisualID
+co.launchable.api.marketo.marketo.syncVisitations.marketoKeys=EmailAddress,UsageID
+co.launchable.api.marketo.marketo.syncVisitations.sqlGlobalPrepare=execute sp_buildVisitations
+co.launchable.api.marketo.marketo.syncVisitations.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncVisitations.sqlWorkerBefore=\
+co.launchable.api.marketo.marketo.syncVisitations.sqlWorkerBefore=\
   update work_visitations set worker = ? where email in (\
     select distinct top 50 email FROM work_visitations WHERE worker IS NULL \
   )
-marketo.syncVisitations.sqlWorker=\
+co.launchable.api.marketo.marketo.syncVisitations.sqlWorker=\
   select AccessCodeGroupName as AccessCodeGroup, a.email as EmailAddress, qty as Quantity, dayused as VisitDate, \
   accessCodeName as VisitType, VisualID, UsageID from GalaxyScans a \
   INNER JOIN work_visitations b on a.email = b.email \
   where worker = ?
 
-marketo.syncVisitations.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncVisitations.sqlWorkerAfterSuccess=\
   update work_visitations set worker = 'COMPLETE' where worker = ?
-marketo.syncVisitations.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncVisitations.sqlWorkerAfterFailure=\
   update work_visitations set worker = null where worker = ?
-marketo.syncVisitations.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncVisitations.sqlCountRecordsToProcess=\
   select count(distinct email) from work_visitations WHERE worker IS NULL
 
-marketo.syncConstituents.marketoKeys=EmailAddress,VisualID
-marketo.syncConstituents.keys=EmailAddress,VisualID
-marketo.syncConstituents.attributes=Category,ConstituentID,DropDate,ExpirationDate, HighestGiftAmount, JoinDate, LastGiftAmount,LastGiftDate, LastGiftFundDescription,MembershipProgram,MembershipStanding,TimesRenewed,TotalGiftAmount,WealthScore,WealthScoreCategory
-marketo.syncConstituents.sqlGlobalPrepare=execute sp_buildConstituents
-marketo.syncConstituents.sqlWorkerBefore=\
+co.launchable.api.marketo.marketo.syncConstituents.marketoKeys=EmailAddress,VisualID
+co.launchable.api.marketo.marketo.syncConstituents.keys=EmailAddress,VisualID
+co.launchable.api.marketo.marketo.syncConstituents.attributes=Category,ConstituentID,DropDate,ExpirationDate, HighestGiftAmount, JoinDate, LastGiftAmount,LastGiftDate, LastGiftFundDescription,MembershipProgram,MembershipStanding,TimesRenewed,TotalGiftAmount,WealthScore,WealthScoreCategory
+co.launchable.api.marketo.marketo.syncConstituents.sqlGlobalPrepare=execute sp_buildConstituents
+co.launchable.api.marketo.marketo.syncConstituents.sqlWorkerBefore=\
   update work_constituents set worker = ? where email in (\
     select distinct top 100 email FROM work_constituents WHERE worker IS NULL \
   )
-marketo.syncConstituents.sqlWorker04272014=select ConstituentEmailAddress, ConstituentEmailAddress as EmailAddress, ConstituentID, VisualID, MembershipLevel as MembershipProgram, \
+co.launchable.api.marketo.marketo.syncConstituents.sqlWorker04272014=select ConstituentEmailAddress, ConstituentEmailAddress as EmailAddress, ConstituentID, VisualID, MembershipLevel as MembershipProgram, \
     MembershipLevel, MembershipStanding, ExpirationDate,TimesRenewed, JoinDate, DropDate, WeathScoreCategory, \
     WeathScore, LastGiftAmount, HighestGiftAmount, LastGiftDate, LastGiftFundDescription, TotalGiftAmount  \
     FROM constituents a INNER JOIN contacts b ON a.constituentEmailAddress = b.email WHERE b.worker = ? order by constituentEmailAddress
-marketo.syncConstituents.sqlWorker=select membershipLevel as Category,ConstituentEmailAddress, ConstituentID, DropDate, \
+co.launchable.api.marketo.marketo.syncConstituents.sqlWorker=select membershipLevel as Category,ConstituentEmailAddress, ConstituentID, DropDate, \
   ConstituentEmailAddress as EmailAddress, ExpirationDate, HighestGiftAmount, JoinDate, LastGiftAmount, \
   LastGiftDate, LastGiftFundDescription, MembershipProgram, MembershipStanding, TimesRenewed, TotalGiftAmount, \
   VisualID, WealthScore, WealthScoreCategory FROM constituents a \
   INNER JOIN contacts b on a.constituentEmailAddress = b.email \
   WHERE worker = ?
 
-marketo.syncConstituents.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncConstituents.sqlWorkerAfterSuccess=\
   update work_constituents set worker = 'COMPLETE' where worker = ?
-marketo.syncConstituents.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncConstituents.sqlWorkerAfterFailure=\
   update work_constituents set worker = null where worker = ?
-marketo.syncConstituents.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncConstituents.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncConstituents.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncConstituents.sqlCountRecordsToProcess=\
   select count(distinct email) from work_constituents WHERE worker IS NULL
 
-marketo.syncInterests.marketoKeys=EmailAddress,InterestName
-marketo.syncInterests.keys=EmailAddress,InterestName
-marketo.syncInterests.attributes=Status
-marketo.syncInterests.sqlGlobalPrepare=execute sp_buildInterests
-marketo.syncInterests.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncInterests.marketoKeys=EmailAddress,InterestName
+co.launchable.api.marketo.marketo.syncInterests.keys=EmailAddress,InterestName
+co.launchable.api.marketo.marketo.syncInterests.attributes=Status
+co.launchable.api.marketo.marketo.syncInterests.sqlGlobalPrepare=execute sp_buildInterests
+co.launchable.api.marketo.marketo.syncInterests.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncInterests.sqlWorkerBefore=\
+co.launchable.api.marketo.marketo.syncInterests.sqlWorkerBefore=\
   update work_interests set worker = ? where email in (\
     select distinct top 150 email FROM work_interests WHERE worker IS NULL \
   )
-marketo.syncInterests.sqlWorker04272014=select a.email as EmailAddress, c.code as InterestName \
+co.launchable.api.marketo.marketo.syncInterests.sqlWorker04272014=select a.email as EmailAddress, c.code as InterestName \
     from contacts a INNER JOIN contactsInterests b ON a.id = b.contactId INNER JOIN interests c ON b.interestid = c.id WHERE a.worker = ?
-marketo.syncInterests.sqlWorker=select a.email EmailAddress, e.name interestName, e.status as Status from contacts a \
+co.launchable.api.marketo.marketo.syncInterests.sqlWorker=select a.email EmailAddress, e.name interestName, e.status as Status from contacts a \
   inner join ContactsInterests d on a.id = d.contactId inner join interests e on e.id = d.interestid WHERE a.worker = ?
-marketo.syncInterests.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncInterests.sqlWorkerAfterSuccess=\
   update work_interests set worker = 'COMPLETE' where worker = ?
-marketo.syncInterests.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncInterests.sqlWorkerAfterFailure=\
   update work_interests set worker = null where worker = ?
-marketo.syncInterests.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncInterests.sqlCountRecordsToProcess=\
   select count(distinct email) from work_interests WHERE worker IS NULL
 
-marketo.syncOrders.keys=EmailAddress,OrderID
-marketo.syncOrders.attributes=Agency,OrderDate,OrderTotal
-marketo.syncOrders.marketoKeys=EmailAddress,OrderID
-marketo.syncOrders.sqlGlobalPrepare=execute sp_buildOrders
-marketo.syncOrders.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncOrders.keys=EmailAddress,OrderID
+co.launchable.api.marketo.marketo.syncOrders.attributes=Agency,OrderDate,OrderTotal
+co.launchable.api.marketo.marketo.syncOrders.marketoKeys=EmailAddress,OrderID
+co.launchable.api.marketo.marketo.syncOrders.sqlGlobalPrepare=execute sp_buildOrders
+co.launchable.api.marketo.marketo.syncOrders.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncOrders.sqlWorkerBefore=\
+co.launchable.api.marketo.marketo.syncOrders.sqlWorkerBefore=\
   update work_orders set worker = ? where email in (\
     select distinct top 100 email FROM work_orders WHERE worker IS NULL \
   )
-marketo.syncOrders.sqlWorker04272014=select a.email as EmailAddress, OrderID, [Purchase Date] as OrderDate, [Purchase Amount] as OrderTotal, \
+co.launchable.api.marketo.marketo.syncOrders.sqlWorker04272014=select a.email as EmailAddress, OrderID, [Purchase Date] as OrderDate, [Purchase Amount] as OrderTotal, \
    AgencyDescription as Agency,null as OrderSubtotal,null as OrderTax,null as DiscountName \
    from GalaxyOrders a INNER JOIN contacts b ON a.email = b.email WHERE b.worker = ?
-marketo.syncOrders.sqlWorker=select AgencyDescription as Agency,EmailAddress,OrderDate,OrderID,pluPrice as OrderTotal from GalaxyOrders a \
+co.launchable.api.marketo.marketo.syncOrders.sqlWorker=select AgencyDescription as Agency,EmailAddress,OrderDate,OrderID,pluPrice as OrderTotal from GalaxyOrders a \
   INNER JOIN work_orders b on a.EmailAddress = b.email \
   WHERE b.worker = ?
-marketo.syncOrders.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncOrders.sqlWorkerAfterSuccess=\
   update work_orders set worker = 'COMPLETE' where worker = ?
-marketo.syncOrders.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncOrders.sqlWorkerAfterFailure=\
   update work_orders set worker = null where worker = ?
-marketo.syncOrders.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncOrders.sqlCountRecordsToProcess=\
   select count(distinct email) from work_orders WHERE worker IS NULL
 
-marketo.syncOrderDetails.keys=EmailAddress,VisualID
-marketo.syncOrderDetails.attributes=PLUName,PLUItemGroup,PLUPrice,DiscountName,OrderDate,OrderID,Quantity
-marketo.syncOrderDetails.marketoKeys=EmailAddress,VisualID
-marketo.syncOrderDetails.sqlGlobalPrepare=execute sp_buildOrderDetails
-marketo.syncOrderDetails.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncOrderDetails.keys=EmailAddress,VisualID
+co.launchable.api.marketo.marketo.syncOrderDetails.attributes=PLUName,PLUItemGroup,PLUPrice,DiscountName,OrderDate,OrderID,Quantity
+co.launchable.api.marketo.marketo.syncOrderDetails.marketoKeys=EmailAddress,VisualID
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlGlobalPrepare=execute sp_buildOrderDetails
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlInsertStatus=\
     insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncOrderDetails.sqlWorkerBefore=\
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlWorkerBefore=\
     update work_order_details set worker = ? where email in (\
       select distinct top 100 email FROM work_order_details WHERE worker IS NULL \
     )
-marketo.syncOrderDetails.sqlWorker04272014=\
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlWorker04272014=\
   SELECT \
       EmailAddress, VisualID, OrderID, PLUPrice, PLUName, PLUItemGroup \
   FROM OrderDetails a \
   INNER JOIN contacts b on a.emailAddress = b.email WHERE b.worker = ?
-marketo.syncOrderDetails.sqlWorker=\
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlWorker=\
 select name as DiscountName,EmailAddress,OrderDate,OrderID,PLUItemGroup,PLUName,PLUPrice,Quantity,VisualID from GalaxyOrderDetail a \
 INNER JOIN work_order_details b on a.EmailAddress = b.email  WHERE b.worker = ?
 
-marketo.syncOrderDetails.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlWorkerAfterSuccess=\
   update work_order_details set worker = 'COMPLETE' where worker = ?
-marketo.syncOrderDetails.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlWorkerAfterFailure=\
   update work_order_details set worker = null where worker = ?
-marketo.syncOrderDetails.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncOrderDetails.sqlCountRecordsToProcess=\
   select count(distinct email) from work_order_details WHERE worker IS NULL
 
-marketo.syncEvents.keys=EmailAddress,VisualID
-marketo.syncEvents.attributes=EventName,EventDate,Attended,Amount,type as TicketType,EventCategory,EventDonation,EventCapacity,UnitQuantity,TotalGiftAmount
-marketo.syncEvents.marketoKeys=EmailAddress,VisualID
-marketo.syncEvents.sqlGlobalPrepare=execute sp_buildEvents
-marketo.syncEvents.sqlInsertStatus=\
+co.launchable.api.marketo.marketo.syncEvents.keys=EmailAddress,VisualID
+co.launchable.api.marketo.marketo.syncEvents.attributes=EventName,EventDate,Attended,Amount,type as TicketType,EventCategory,EventDonation,EventCapacity,UnitQuantity,TotalGiftAmount
+co.launchable.api.marketo.marketo.syncEvents.marketoKeys=EmailAddress,VisualID
+co.launchable.api.marketo.marketo.syncEvents.sqlGlobalPrepare=execute sp_buildEvents
+co.launchable.api.marketo.marketo.syncEvents.sqlInsertStatus=\
   insert into MarketoStatus (objectType, status, error, key1, key2, lastUpdated) values (?, ?, ?, ?, ?, getdate())
-marketo.syncEvents.sqlWorkerBefore=\
+co.launchable.api.marketo.marketo.syncEvents.sqlWorkerBefore=\
     update work_events set worker = ? where email in (\
       select distinct top 100 email FROM work_events WHERE worker IS NULL \
     )
-marketo.syncEvents.sqlWorker=\
+co.launchable.api.marketo.marketo.syncEvents.sqlWorker=\
   select EventName,EventDate,Attended,Amount,type as TicketType,EventCategory,EventDonation,EventCapacity,UnitQuantity,TotalGiftAmount,emailAddress from event a \
   INNER JOIN work_events b on a.emailAddress = b.email WHERE b.worker = ?
-marketo.syncEvents.sqlWorkerAfterSuccess=\
+co.launchable.api.marketo.marketo.syncEvents.sqlWorkerAfterSuccess=\
 UPDATE work_events set worker = 'COMPLETE' where worker = ?
-marketo.syncEvents.sqlWorkerAfterFailure=\
+co.launchable.api.marketo.marketo.syncEvents.sqlWorkerAfterFailure=\
 UPDATE work_events set worker = null where worker = ?
-marketo.syncEvents.sqlCountRecordsToProcess=\
+co.launchable.api.marketo.marketo.syncEvents.sqlCountRecordsToProcess=\
   select count(distinct email) from work_events WHERE worker IS NULL

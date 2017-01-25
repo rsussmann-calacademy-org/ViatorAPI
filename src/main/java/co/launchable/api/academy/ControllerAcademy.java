@@ -2,8 +2,6 @@ package co.launchable.api.academy;
 
 import co.launchable.api.jobs.JobStatusService;
 import co.launchable.api.egalaxy.ServiceGalaxy;
-import co.launchable.api.marketo.ReportableSynchronizationObject;
-import co.launchable.api.marketo.ServiceMarketo;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.PooledDataSource;
 import org.apache.log4j.Logger;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -26,7 +23,7 @@ import java.util.*;
 /**
  * Created by michaelmcelligott on 1/28/14.
  */
-@PropertySource("academy.properties")
+@PropertySource("classpath:/academy.properties")
 @Controller
 @RequestMapping("/academy")
 public class ControllerAcademy {
@@ -38,9 +35,6 @@ public class ControllerAcademy {
 
     @Autowired
     JobStatusService jobStatusService;
-
-    @Autowired(required=false)
-    ServiceMarketo serviceMarketo;
 
     @Autowired
     ServiceGalaxy serviceGalaxy;
@@ -104,7 +98,6 @@ public class ControllerAcademy {
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
-
 
         modelMap.put("webServiceReachable", "true");
         modelMap.put("galaxyWebServiceReachable", galaxyWebServiceReachable ? "true" : "false");
@@ -178,24 +171,18 @@ public class ControllerAcademy {
             message = e.getMessage();
         }
 
-        //launch the marketo synchronization for the contact in a new thread
-        if (contactId != null) {
-            final Long finalContactId = contactId;
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    serviceMarketo.syncSingleLeadAndInterests(finalContactId);
-                }
-            };
-            new Thread(runnable).start();
-        }
+        //launch the co.launchable.api.marketo.marketo synchronization for the contact in a new thread
+        //note: no longer using marketo
 
-
-//        try {
-//            Resty r = new Resty();
-//            JSONResource jsonResource = r.json("http://japp1.prod.calacademy.org:8080/api/marketo/syncLeadAndInterests?contactId=" + contactId);
-//        } catch (IOException ioe) {
-//            ioe.printStackTrace();
+//        if (contactId != null) {
+//            final Long finalContactId = contactId;
+//            Runnable runnable = new Runnable() {
+//                @Override
+//                public void run() {
+//                    serviceMarketo.syncSingleLeadAndInterests(finalContactId);
+//                }
+//            };
+//            new Thread(runnable).start();
 //        }
 
         ModelMap modelMap = new ModelMap();
@@ -208,40 +195,7 @@ public class ControllerAcademy {
         return modelMap;
     }
 
-    @RequestMapping(value="/jobStatus", method= RequestMethod.GET)
-    public ModelMap jobStatus(HttpServletRequest request) {
-        ModelMap modelMap = new ModelMap();
-        if (request.getParameter("uuid") != null) {
-            int fullRowsProcessed = 0;
-            int rowsToProcess = 10000000;
-            List workers = jobStatusService.getWorkersForUUID(request.getParameter("uuid"));
-            Date jobCreation = jobStatusService.getJobCreation(request.getParameter("uuid"));
-            long secondsElapsed = (new Date().getTime()) - jobCreation.getTime();
-            secondsElapsed = secondsElapsed / 1000;
 
-            for (int i = 0; i < workers.size(); i++) {
-                ReportableSynchronizationObject apiSyncObjectBase = (ReportableSynchronizationObject) workers.get(i);
-                fullRowsProcessed += apiSyncObjectBase.getFullRowsProcessed();
-                rowsToProcess = apiSyncObjectBase.getRowsToProcess() < rowsToProcess ? apiSyncObjectBase.getRowsToProcess() : rowsToProcess;
-            }
-
-            int percentageComplete = 0;
-            if ((fullRowsProcessed + rowsToProcess) > 0)
-                percentageComplete = (int)((100 * fullRowsProcessed) / (fullRowsProcessed + rowsToProcess));
-
-            float rowsPerSecond = (float)fullRowsProcessed / (float)secondsElapsed;
-            int secondsToGo = (int) ((float)rowsToProcess/(float)rowsPerSecond);
-
-            modelMap.addAttribute("secondsElapsed", secondsElapsed);
-            modelMap.addAttribute("secondsToGo", secondsToGo);
-            modelMap.addAttribute("rowsProcessed", fullRowsProcessed);
-            modelMap.addAttribute("rowsLeft", rowsToProcess);
-            modelMap.addAttribute("percentageComplete", percentageComplete);
-            modelMap.addAttribute("workers", workers);
-            modelMap.addAttribute("uuid", request.getParameter("uuid"));
-        }
-        return modelMap;
-    }
 
     @RequestMapping(value="/serverStatus", method= RequestMethod.GET)
     public ModelMap serverStatus(WebRequest webRequest) {
