@@ -58,11 +58,8 @@ To do:
 4. determine whether or not orders should be open or closed
 5. update order status to be an int, which apparently it needs to be from the example
 */
-@PropertySource("classpath:egalaxy.properties")
 @Service
 public class ServiceGalaxy {
-    @Autowired
-    Environment env;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -90,6 +87,7 @@ public class ServiceGalaxy {
     private int galaxyReauthenticationMinutes = -1;
     private boolean enableHeartbeatThread = true;
     private long defaultAbandonmentMs = 300000;
+    private String membershipPropertiesPath;
 
     private VelocityEngine velocityEngine;
     PaymentechProcessor processor = new PaymentechProcessor();
@@ -108,13 +106,10 @@ public class ServiceGalaxy {
     private boolean orbitalTesting = false;
     private int serverId;
 
-    private int currentMessageId = -1;
     private int currentOrderNumber = -1;
     private Date currentDate;
-    private String propertiesPath;
     Properties orderProps;
     private DateFormat formatOrderNumber = new SimpleDateFormat("YYYYMMddHHmm");
-    private List listOrders = new ArrayList();
     private long productCacheMs = 600000;
     private long productsLoaded = 0;
     private DecimalFormat dFormat = new DecimalFormat("0.00");
@@ -127,9 +122,26 @@ public class ServiceGalaxy {
     private DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     private DocumentBuilder documentBuilder;
     private Map mapEventTypesByName;
+    private String velocityLogLocation;
 
     PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
     private Map mapSessionsToCreationTimes = new HashMap();
+
+    public String getVelocityLogLocation() {
+        return velocityLogLocation;
+    }
+
+    public void setVelocityLogLocation(String velocityLogLocation) {
+        this.velocityLogLocation = velocityLogLocation;
+    }
+
+    public String getMembershipPropertiesPath() {
+        return membershipPropertiesPath;
+    }
+
+    public void setMembershipPropertiesPath(String membershipPropertiesPath) {
+        this.membershipPropertiesPath = membershipPropertiesPath;
+    }
 
     public long getTimeoutBetweenAttempts() {
         return timeoutBetweenAttempts;
@@ -155,14 +167,6 @@ public class ServiceGalaxy {
         this.enableHeartbeatThread = enableHeartbeatThread;
     }
 
-    public String getPropertiesPath() {
-        return propertiesPath;
-    }
-
-    public void setPropertiesPath(String propertiesPath) {
-        this.propertiesPath = propertiesPath;
-    }
-
     public long getProductCacheMs() {
         return productCacheMs;
     }
@@ -177,6 +181,14 @@ public class ServiceGalaxy {
 
     public void setGalaxyConnectionTimeoutTransaction(Integer galaxyConnectionTimeoutTransaction) {
         this.galaxyConnectionTimeoutTransaction = galaxyConnectionTimeoutTransaction;
+    }
+
+    public int getGalaxyReauthenticationMinutes() {
+        return galaxyReauthenticationMinutes;
+    }
+
+    public void setGalaxyReauthenticationMinutes(int galaxyReauthenticationMinutes) {
+        this.galaxyReauthenticationMinutes = galaxyReauthenticationMinutes;
     }
 
     public Integer getGalaxyConnectionTimeoutStatusCheck() {
@@ -265,11 +277,8 @@ public class ServiceGalaxy {
 
     @PostConstruct
     public void init() {
-        //httpClient = new DefaultHttpClient(connectionManager);
         initializeConnectionManager();
         initializeVelocity();
-        //initializeGalaxyJdbcProperties();
-        //initializeGalaxyWebServiceProperties();
         initializeGalaxyHeartbeatThread();
         refreshCaches();
     }
@@ -292,39 +301,12 @@ public class ServiceGalaxy {
         p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.SimpleLog4JLogSystem");
         p.setProperty("runtime.log.logsystem.log4j.category", "velocity");
         p.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
-        p.setProperty("runtime.log", env.getProperty("velocityLogLocation"));
+        p.setProperty("runtime.log", velocityLogLocation);
         velocityEngine.init(p);
-    }
-
-    private void initializeGalaxyWebServiceProperties() {
-        serverUrl = env.getProperty("galaxyServerUrl");
-        serverPort = Integer.parseInt(env.getProperty("galaxyServerPort"));
-        galaxyUsername = env.getProperty("galaxyUsername");
-        galaxyPassword = env.getProperty("galaxyPassword");
-        galaxySourceId = env.getProperty("galaxySourceId");
-        galaxyCustomerId = env.getProperty("galaxyCustomerId");
-        viatorCustomerId = env.getProperty("viatorCustomerId");
-        viatorSalesProgramId = env.getProperty("viatorSalesProgramId");
-
-        serverId = Integer.parseInt(env.getProperty("serverId"));
-        propertiesPath = env.getProperty("propertiesPath");
-
-        if (env.getProperty("galaxyConnectionTimeoutTransaction") != null)
-            galaxyConnectionTimeoutTransaction = Integer.parseInt(env.getProperty("galaxyConnectionTimeoutTransaction"));
-
-        if (env.getProperty("galaxyConnectionTimeoutStatusCheck") != null)
-            galaxyConnectionTimeoutStatusCheck = Integer.parseInt(env.getProperty("galaxyConnectionTimeoutStatusCheck"));
-
-        productCacheMs = Long.parseLong(env.getProperty("productCacheMs"));
-        maxVisualIdRetrievalAttempts = Integer.parseInt(env.getProperty("maxVisualIdRetrievalAttempts"));
-
-        if (env.getProperty("retryErrors") != null)
-            recoverableErrorStrings = env.getProperty("retryErrors").split("|");
     }
 
     private void initializeGalaxyHeartbeatThread() {
         try {
-            galaxyReauthenticationMinutes = Integer.parseInt(env.getProperty("galaxyReauthenticationMinutes"));
             HeartbeatGalaxyRunnable heartbeatGalaxyRunnable = new HeartbeatGalaxyRunnable();
             heartbeatGalaxyRunnable.setServiceGalaxy(this);
             heartbeatGalaxyRunnable.setReauthenticationMinutes(galaxyReauthenticationMinutes);
@@ -1013,7 +995,7 @@ public class ServiceGalaxy {
     private void writeProps(int currentOrderNumber, Date now, int currentMessageId) throws FileNotFoundException, IOException {
         log.info("Storing current properties");
 
-        FileOutputStream fos = new FileOutputStream(new File(propertiesPath));
+        FileOutputStream fos = new FileOutputStream(new File(membershipPropertiesPath));
         synchronized(orderProps) {
             orderProps.setProperty("currentOrderNumber", currentOrderNumber + "");
             orderProps.setProperty("currentMessageId", currentMessageId + "");

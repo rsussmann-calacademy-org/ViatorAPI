@@ -72,8 +72,10 @@
         <property name="viatorCustomerId" value="45749"/>
         <property name="viatorSalesProgramId" value="164"/>
         <property name="serverId" value="1"/>
-        <property name="propertiesPath" value="/data/membership/membership.properties"/>
+        <property name="membershipPropertiesPath" value="/data/membership/membership.properties"/>
         <property name="productCacheMs" value="600000"/>
+        <property name="velocityLogLocation" value="/data/membership/velocity.log"/>
+        <property name="galaxyReauthenticationMinutes" value="10"/>
     </bean>
 
 

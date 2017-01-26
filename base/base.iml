@@ -73,5 +73,14 @@
     </orderEntry>
     <orderEntry type="library" exported="" name="org.hibernate:hibernate-entitymanager:5.2.7.Final" level="project" />
     <orderEntry type="library" exported="" name="org.jboss.logging:jboss-logging:3.3.0.Final" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$PROJECTS_HOME$/ASViatorIntegration/lib/log4j-1.2.17.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
