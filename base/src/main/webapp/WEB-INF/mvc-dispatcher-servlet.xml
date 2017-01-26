@@ -13,7 +13,6 @@
 
     <context:component-scan base-package="co.launchable.api.academy"/>
     <context:component-scan base-package="co.launchable.api.egalaxy"/>
-    <context:component-scan base-package="co.launchable.api.viator"/>
     <context:component-scan base-package="co.launchable.api.email"/>
 
     <context:property-placeholder location="classpath:jdbc-test.properties"/>
@@ -22,6 +21,8 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <bean id="jobStatusService" class="co.launchable.api.jobs.JobStatusServiceImpl"/>
 
     <bean class="co.launchable.api.viator.DaoBooking"/>
     <bean class="co.launchable.api.viator.DaoTicket"/>
@@ -85,47 +86,16 @@
     </bean>
 
 
-
-    <bean id="galaxyTicketCreator" class="co.launchable.api.viator.GalaxyTicketCreator">
-        <property name="abandonSessionEveryTime"  value="true"/>
-        <property name="eventId"  value="43921"/>
-        <property name="resourceId" value="262"/>
-        <property name="plu" value="10151571"/>
-        <property name="period" value="3600000"/>
-    </bean>
-
-    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="contextPath" value="co.launchable.api.viator.xml"/>
-    </bean>
-
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-          <util:list id="beanList">
-            <ref bean="stringHttpMessageConverter"/>
-            <ref bean="marshallingHttpMessageConverter"/>
-          </util:list>
-        </property>
-    </bean>
-
-    <bean id="stringHttpMessageConverter"
-           class="org.springframework.http.converter.StringHttpMessageConverter"/>
-
-    <bean id="marshallingHttpMessageConverter"
-          class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-      <property name="marshaller" ref="jaxb2Marshaller" />
-      <property name="unmarshaller" ref="jaxb2Marshaller" />
-    </bean>
-
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSourceContacts" />
 
         <property name="annotatedClasses">
             <list>
-                <value>viator.Booking</value>
-                <value>viator.Ticket</value>
-                <value>viator.BookingAction</value>
-                <value>viator.BookingComment</value>
+                <value>co.launchable.api.viator.Booking</value>
+                <value>co.launchable.api.viator.Ticket</value>
+                <value>co.launchable.api.viator.BookingAction</value>
+                <value>co.launchable.api.viator.BookingComment</value>
             </list>
         </property>
 
