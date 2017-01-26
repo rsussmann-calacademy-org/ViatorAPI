@@ -22,12 +22,13 @@ public class RunSendTimeoutEmail implements Runnable {
     ServiceEmail serviceEmail;
     DateFormat dateFormat;
     VelocityEngine velocityEngine;
+    String emailReportRecipients;
 
-    public RunSendTimeoutEmail(Date start, Date end, String transaction, long emailTransactionTimeout, Environment env, ServiceEmail serviceEmail, DateFormat dateFormat, VelocityEngine velocityEngine) {
+    public RunSendTimeoutEmail(Date start, Date end, String transaction, long emailTransactionTimeout, String emailReportRecipients, ServiceEmail serviceEmail, DateFormat dateFormat, VelocityEngine velocityEngine) {
         this.start = start;
         this.end = end;
         this.emailTransactionTimeout = emailTransactionTimeout;
-        this.env = env;
+        this.emailReportRecipients = emailReportRecipients;
         this.serviceEmail = serviceEmail;
         this.dateFormat = dateFormat;
         this.velocityEngine = velocityEngine;
@@ -55,8 +56,7 @@ public class RunSendTimeoutEmail implements Runnable {
         Template t = velocityEngine.getTemplate("templates/viator/tpl_viatorTimeout.vtl");
         t.merge(vc, stringWriter);
 
-        String recipients = env.getProperty("viator.emailReportRecipients");
-        String[] arrayRecipients = recipients.split(",");
+        String[] arrayRecipients = emailReportRecipients.split(",");
         serviceEmail.sendHtmlEmail(subject, arrayRecipients, stringWriter.toString());
     }
 }

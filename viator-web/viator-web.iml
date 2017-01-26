@@ -19,6 +19,7 @@
         <fileset id="fileset" name="Viator Application Context" removed="false">
           <file>file://$PROJECTS_HOME$/ASViatorIntegration/viator/src/main/webapp/viator-dispatcher-servlet.xml</file>
           <file>file://$PROJECTS_HOME$/ASViatorIntegration/viator/src/main/webapp/WEB-INF/viator-dispatcher-servlet.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/viator-dispatcher-servlet.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -31,7 +32,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="base" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -51,5 +51,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="viator-xml" />
+    <orderEntry type="module" module-name="base" />
   </component>
 </module>

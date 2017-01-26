@@ -5,7 +5,6 @@ import co.launchable.api.egalaxy.EventTicketHoldResponse;
 import co.launchable.api.egalaxy.ResponseAuthentication;
 import co.launchable.api.egalaxy.ServiceGalaxy;
 import co.launchable.api.viator.xml.AvailabilityRequest;
-import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 
 import java.util.*;

@@ -34,14 +34,10 @@ import java.util.*;
 /**
  * Created by michaelmcelligott on 1/10/14.
  */
-@PropertySource("classpath:viator.properties")
 @RequestMapping("/viator")
 @Controller
 public class ControllerViator extends BaseController implements InitializingBean {
     Logger log = Logger.getLogger(ControllerViator.class);
-
-    @Autowired
-    Environment env;
 
     @Autowired(required=false)
     ServiceGalaxy serviceGalaxy;
@@ -74,6 +70,15 @@ public class ControllerViator extends BaseController implements InitializingBean
     private SimpleDateFormat sdfDateTime = new SimpleDateFormat("MM-dd hh:mm:ss");
     private VelocityEngine velocityEngine;
     private boolean abandonSessionImmediate = true;
+    private String emailReportRecipients;
+
+    public String getEmailReportRecipients() {
+        return emailReportRecipients;
+    }
+
+    public void setEmailReportRecipients(String emailreportRecipients) {
+        this.emailReportRecipients = emailreportRecipients;
+    }
 
     public boolean isAbandonSessionImmediate() {
         return abandonSessionImmediate;
@@ -191,6 +196,7 @@ public class ControllerViator extends BaseController implements InitializingBean
         //p.setProperty("runtime.log", env.getProperty("velocityLogLocation"));
         velocityEngine.init(p);
     }
+
     public Map<String, String> getProductAgeCodesToPLUPrefixes() {
         return productAgeCodesToPLUPrefixes;
     }
@@ -238,10 +244,9 @@ public class ControllerViator extends BaseController implements InitializingBean
         map.put("price", price);
         return map;
     }
+
     @Override
     public void afterPropertiesSet() throws Exception {
-        //supplierId = env.getProperty("supplierId");
-        //apiKey = env.getProperty("apiKey");
         tGalaxyTicketCreator = new Thread(galaxyTicketCreator);
         tGalaxyTicketCreator.start();
     }
@@ -874,7 +879,7 @@ public class ControllerViator extends BaseController implements InitializingBean
         long msEnd = end.getTime();
         long ms = msEnd - msStart;
         if (ms > emailTransactionTimeout) {
-            Runnable timeoutEmailThread = new RunSendTimeoutEmail(start, end, transaction, emailTransactionTimeout, env, serviceEmail, sdfDateTime, velocityEngine);
+            Runnable timeoutEmailThread = new RunSendTimeoutEmail(start, end, transaction, emailTransactionTimeout, emailReportRecipients, serviceEmail, sdfDateTime, velocityEngine);
             Thread t = new Thread(timeoutEmailThread);
             t.start();
         }
