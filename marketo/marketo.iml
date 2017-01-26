@@ -14,7 +14,7 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/web" relative="/" />
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -37,7 +37,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="base" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -85,5 +84,6 @@
     </orderEntry>
     <orderEntry type="library" name="org.apache.httpcomponents:httpclient:4.5.2" level="project" />
     <orderEntry type="library" name="us.monoid.web:resty:0.3.2" level="project" />
+    <orderEntry type="module" module-name="base" />
   </component>
 </module>
