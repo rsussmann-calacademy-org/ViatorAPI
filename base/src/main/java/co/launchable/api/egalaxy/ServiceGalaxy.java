@@ -88,6 +88,7 @@ public class ServiceGalaxy {
     private boolean enableHeartbeatThread = true;
     private long defaultAbandonmentMs = 300000;
     private String membershipPropertiesPath;
+    private String sqlEventTypes;
 
     private VelocityEngine velocityEngine;
     PaymentechProcessor processor = new PaymentechProcessor();
@@ -141,6 +142,14 @@ public class ServiceGalaxy {
 
     public void setMembershipPropertiesPath(String membershipPropertiesPath) {
         this.membershipPropertiesPath = membershipPropertiesPath;
+    }
+
+    public String getSqlEventTypes() {
+        return sqlEventTypes;
+    }
+
+    public void setSqlEventTypes(String sqlEventTypes) {
+        this.sqlEventTypes = sqlEventTypes;
     }
 
     public long getTimeoutBetweenAttempts() {
