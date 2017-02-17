@@ -32,15 +32,6 @@
     <orderEntry type="library" exported="" name="org.springframework:spring-oxm:4.3.5.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="org.springframework:spring-webmvc:4.3.5.RELEASE" level="project" />
     <orderEntry type="library" name="taglibs:standard:1.1.2" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$PROJECTS_HOME$/ASViatorIntegration/lib/c3p0-0.9.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="viator-web" />
     <orderEntry type="module-library">
       <library>
@@ -82,5 +73,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="org.hibernate:hibernate-validator:5.4.0.Final" level="project" />
+    <orderEntry type="library" exported="" name="com.mchange:c3p0:0.9.5.2" level="project" />
+    <orderEntry type="library" exported="" name="commons-collections:commons-collections:3.2.1" level="project" />
   </component>
 </module>
