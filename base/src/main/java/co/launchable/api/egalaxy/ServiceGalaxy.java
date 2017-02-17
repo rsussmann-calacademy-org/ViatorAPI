@@ -330,7 +330,9 @@ public class ServiceGalaxy {
         try {
             con = dataSource.getConnection();
 
-            ResultSet rs = con.createStatement().executeQuery("SELECT EventTypeId, Name FROM RMEventTypes");
+            //@todo externalize this query
+            String sql = "SELECT t.EventTypeId, t.Name FROM Galaxy_Test.dbo.RMEventTypes t";
+            ResultSet rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
                 Map map = new HashMap();
                 map.put("EventTypeId", rs.getString("EventTypeId"));

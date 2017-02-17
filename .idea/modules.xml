@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/base.iml" filepath="$PROJECT_DIR$/base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
       <module fileurl="file://$PROJECT_DIR$/marketo/marketo.iml" filepath="$PROJECT_DIR$/marketo/marketo.iml" />
       <module fileurl="file://$PROJECT_DIR$/viator-web/viator-web.iml" filepath="$PROJECT_DIR$/viator-web/viator-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/viator-xml/viator-xml.iml" filepath="$PROJECT_DIR$/viator-xml/viator-xml.iml" />

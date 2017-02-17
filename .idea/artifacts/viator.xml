@@ -4,7 +4,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="base" />
+          <element id="module-output" name="general" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="com.mchange:c3p0:0.9.2" />
@@ -19,8 +19,8 @@
           <element id="library" level="project" name="org.hibernate:hibernate-validator:4.3.1.Final" />
         </element>
         <element id="file-copy" path="$PROJECT_DIR$/viator-web/src/main/webapp/WEB-INF/viator-dispatcher-servlet.xml" />
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml" />
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <element id="file-copy" path="$PROJECT_DIR$/base/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml" />
+        <element id="file-copy" path="$PROJECT_DIR$/base/src/main/webapp/WEB-INF/web.xml" />
       </element>
     </root>
   </artifact>

@@ -4,7 +4,6 @@
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/jboss/logmanager/jboss-logmanager/1.5.2.Final/jboss-logmanager-1.5.2.Final.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/log4j/log4j/1.2.16/log4j-1.2.16.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.0/log4j-api-2.0.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar!/" />
     </CLASSES>

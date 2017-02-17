@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="SQL Server - AcademyContacts@galaxy-test" uuid="515f3012-4302-40bb-8015-f2be5e6e9779">
+    <data-source name="SQL Server - @galaxy-test" uuid="515f3012-4302-40bb-8015-f2be5e6e9779">
       <user-name>Jasper</user-name>
       <user-password>dfe0dfeadfd9dfdadf99dfd8</user-password>
     </data-source>
@@ -14,8 +14,9 @@
       <user-password>dfe0dfeadfd9dfdadf99dfd8</user-password>
       <schema-pattern>Galaxy1.*</schema-pattern>
     </data-source>
-    <data-source name="SQL Server - @galaxy-test" uuid="672843e2-bfd1-43fa-a420-d720cab19bb4">
+    <data-source name="SQL Server - Galaxy_Test@galaxy-test" uuid="672843e2-bfd1-43fa-a420-d720cab19bb4">
       <secret-storage>memory</secret-storage>
+      <user-name>Jasper</user-name>
     </data-source>
     <data-source name="SQL Server - AcademyContacts@warehouse-prod" uuid="a640a026-8699-404f-97d9-22467ac944ea">
       <user-name>Jasper</user-name>
