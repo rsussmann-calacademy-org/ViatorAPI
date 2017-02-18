@@ -2,13 +2,13 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration>
     <appender name="eCommerce" class="org.apache.log4j.RollingFileAppender">
-    	<param name="File" value="/usr/local/tomcat/logs/eCommerce.log"/>
+    	<param name="File" value="/opt/tomcat/logs/eCommerce.log"/>
         <layout class="org.apache.log4j.PatternLayout">
         	<param name="ConversionPattern" value="%5p,%d,[%c] - %m%n"/>
         </layout>
     </appender>
     <appender name="engine" class="org.apache.log4j.RollingFileAppender">
-    	<param name="File" value="/usr/local/tomcat/logs/engine.log"/>
+    	<param name="File" value="/opt/tomcat/logs/engine.log"/>
         <layout class="org.apache.log4j.PatternLayout">
         	<param name="ConversionPattern" value="%5p,%d,[%c] - %m%n"/>
         </layout>

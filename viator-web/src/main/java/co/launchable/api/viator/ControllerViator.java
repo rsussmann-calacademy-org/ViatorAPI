@@ -966,7 +966,7 @@ public class ControllerViator extends BaseController implements InitializingBean
         return tickets;
     }
 
-    private ResponseSimple doBookingCancel(Booking bookingRecord, String sessionId) {
+    private ResponseSimple doBookingCancel(Booking bookingRecord, String sessionId, boolean abandonSessionAfter) {
         log.info("Looked up event by id " +  bookingRecord.getLastAction().getEventId());
 
         sessionId = serviceGalaxy.getSessionId(sessionId);
@@ -987,7 +987,8 @@ public class ControllerViator extends BaseController implements InitializingBean
                 log.info("Unexpected request, booking record was null, but doBookingCancel called anyway");
         }
 
-        runAbandonSessionImmediate(sessionId);
+        if (abandonSessionAfter)
+            runAbandonSessionImmediate(sessionId);
         log.info("Problem performing booking cancellation, returning null");
         return responseSimple;
     }
@@ -1020,7 +1021,7 @@ public class ControllerViator extends BaseController implements InitializingBean
             if (lastAction != null && (lastAction.getStatus().equals(BookingAction.STATUS_ACTIVATED) || lastAction.getStatus().equals(BookingAction.STATUS_CONFIRMED))) {
                 log.info(request.getBookingReference() + ": last action was activated or confirmed, cancelling");
 
-                responseSimple = doBookingCancel(bookingRecord, sessionId);
+                responseSimple = doBookingCancel(bookingRecord, sessionId, true);
 
                 if (responseSimple.getStatusCode().equals("0")) {
                     log.info(request.getBookingReference() + ": booking cancellation was successful, building response");
@@ -1105,7 +1106,7 @@ public class ControllerViator extends BaseController implements InitializingBean
 
         Booking bookingRecord = serviceBooking.getBookingByBookingReference(request.getBookingReference());
         log.info("Looked up booking record for cancellation, reference is " + request.getBookingReference() + ", record is : " + bookingRecord);
-        ResponseSimple responseSimple = doBookingCancel(bookingRecord, sessionId);
+        ResponseSimple responseSimple = doBookingCancel(bookingRecord, sessionId, false);
         log.info("Booking cancellation response returned,  " + responseSimple);
         doBooking(request, response, bookingRecord, sessionId);
         log.info("Booking response returned,  " + response + ", returning as web service result");

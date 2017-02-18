@@ -10,6 +10,8 @@
           <element id="module-output" name="viator-xml" />
           <element id="module-output" name="base" />
           <element id="file-copy" path="$PROJECT_DIR$/base/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml" />
+          <element id="dir-copy" path="$PROJECT_DIR$/base/src/main/resources/templates/paymentech/templates" />
+          <element id="dir-copy" path="$PROJECT_DIR$/base/src/main/resources/templates/paymentech" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="org.springframework:spring-orm:4.3.5.RELEASE" />

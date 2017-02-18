@@ -310,6 +310,7 @@ public class ServiceGalaxy {
         p.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.SimpleLog4JLogSystem");
         p.setProperty("runtime.log.logsystem.log4j.category", "velocity");
         p.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
+        p.setProperty("velocimacro.library", "");
         p.setProperty("runtime.log", velocityLogLocation);
         velocityEngine.init(p);
     }
@@ -339,9 +340,7 @@ public class ServiceGalaxy {
         try {
             con = dataSource.getConnection();
 
-            //@todo externalize this query
-            String sql = "SELECT t.EventTypeId, t.Name FROM Galaxy_Test.dbo.RMEventTypes t";
-            ResultSet rs = con.createStatement().executeQuery(sql);
+            ResultSet rs = con.createStatement().executeQuery(sqlEventTypes);
             while (rs.next()) {
                 Map map = new HashMap();
                 map.put("EventTypeId", rs.getString("EventTypeId"));
